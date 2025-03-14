@@ -42,6 +42,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
   __sanitizer_cov_trace_pc_guard(&guards[40]);
   while (!eof) {
     read_result = ov_read(&vf, buf, sizeof(buf), 0, 2, 1, &current_section);
+    __sanitizer_cov_trace_pc_guard(&guards[41]);
     if (read_result != OV_HOLE && read_result <= 0) {
       eof = 1;
     }
