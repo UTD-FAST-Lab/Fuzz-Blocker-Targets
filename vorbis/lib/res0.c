@@ -865,7 +865,7 @@ int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
         }
 
         /* now we decode residual values for the partitions */
-        printf("[TRACE] Hash: c844f44def94ae808597984e44cc8466, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 835, Col: 42, Branch: "for(k=0;k<partitions_per_word && i<partvals;k++\n");
+        printf("[TRACE] Hash: c844f44def94ae808597984e44cc8466, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 835, Col: 42, Branch: for(k=0;k<partitions_per_word && i<partvals;k++\n");
         for(k=0;k<partitions_per_word && i<partvals;k++,i++)
           printf("[TRACE] Hash: 2725300afcb7909f3f212dee6545f76f, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 836, Col: 14, Branch: if(info->secondstages[partword[l][k]]&(1<<s)){\n");
           if(info->secondstages[partword[l][k]]&(1<<s)){

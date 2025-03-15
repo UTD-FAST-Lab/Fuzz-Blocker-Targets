@@ -740,7 +740,7 @@ int vorbis_synthesis_restart(vorbis_dsp_state *v){
 }
 
 int vorbis_synthesis_init(vorbis_dsp_state *v,vorbis_info *vi){
-  printf("[TRACE] Hash: 32a5e8c5449ce1ef09c9e050365f6723, File: vorbis/lib/block.c, Func: vorbis_synthesis_init, Line: 718, Col: 6, Branch: "if(_vds_shared_init(v,vi,0)){\n");
+  printf("[TRACE] Hash: 32a5e8c5449ce1ef09c9e050365f6723, File: vorbis/lib/block.c, Func: vorbis_synthesis_init, Line: 718, Col: 6, Branch: if(_vds_shared_init(v,vi,0)){\n");
   if(_vds_shared_init(v,vi,0)){
     vorbis_dsp_clear(v);
     return 1;

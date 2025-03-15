@@ -151,7 +151,7 @@ static_codebook *vorbis_staticbook_unpack(oggpack_buffer *opb){
   s->allocedp=1;
 
   /* make sure alignment is correct */
-  printf("[TRACE] Hash: 079fa8343142b03c416b61bb0117143d, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 154, Col: 6, Branch: "if(oggpack_read(opb\n");
+  printf("[TRACE] Hash: 079fa8343142b03c416b61bb0117143d, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 154, Col: 6, Branch: if(oggpack_read(opb,24)!=0x564342)\n");
   if(oggpack_read(opb,24)!=0x564342)goto _eofout;
 
   /* first the basic parameters */
