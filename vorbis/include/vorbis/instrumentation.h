@@ -1,16 +1,13 @@
-#include "instrumentation.h"
+#ifndef INSTRUMENTATION_H
+#define INSTRUMENTATION_H
 
-void foo() {
-    __sanitizer_cov_trace_pc_guard(&guards[4]);
-    printf("Inside foo\n");  // Line 4
-}
+#include <stdio.h>
+#include <stdint.h>
+#include <sanitizer/coverage_interface.h> 
 
-int main() {
-    initialize_guards();  // Ensure guards are initialized before usage
-    __sanitizer_cov_trace_pc_guard(&guards[8]);
-    printf("Starting program...\n");
-    foo();
-    __sanitizer_cov_trace_pc_guard(&guards[9]);
-    printf("Ending program...\n");
-    return 0;
-}
+extern uint8_t guards[];  // Declare the guards array
+
+void initialize_guards();  // Function to initialize guards
+void __sanitizer_cov_trace_pc_guard(unsigned int *guard);  // Function to track execution
+
+#endif  // INSTRUMENTATION_H

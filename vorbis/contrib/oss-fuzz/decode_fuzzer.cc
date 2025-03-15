@@ -2,7 +2,6 @@
 #include <string.h>
 #include <cstdint>
 #include <vorbis/vorbisfile.h>
-#include <sanitizer/coverage_interface.h> 
 
 struct vorbis_data {
   const uint8_t *current;
