@@ -282,8 +282,11 @@ long oggpack_look(oggpack_buffer *b,int bits){
     if(b->endbyte > b->storage-((bits+7)>>3)) return -1;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
-    else printf("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13, Branch: else if(!bits)return(0L);\n");
-    if(!bits)return(0L);
+    else if(!bits){
+      printf("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13, Branch: else if(!bits)return(0L);\n");
+      return(0L);
+    }
+    printf("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13, Branch: else if(!bits)return(0L);\n");  
   }
 
   ret=b->ptr[0]>>b->endbit;
@@ -395,8 +398,11 @@ long oggpack_read(oggpack_buffer *b,int bits){
     if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
-    printf("[TRACE] Hash: 79236360aebc233b1292ce0456774d18, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 387, Col: 13, Branch: else if(!bits)return(0L);\n");
-    else if(!bits)return(0L);
+    else if(!bits){
+      printf("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13, Branch: else if(!bits)return(0L);\n");
+      return(0L);
+    }
+    printf("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13, Branch: else if(!bits)return(0L);\n"); 
   }
 
   ret=b->ptr[0]>>b->endbit;

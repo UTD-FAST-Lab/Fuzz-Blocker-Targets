@@ -855,7 +855,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
   printf("[TRACE] Hash: d879e09daf9ac4bb20fb6a214988889f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 821, Col: 6, Branch: if(version>0)return(-1);\n");
   if(version>0)return(-1);
 
-  printf("[TRACE] Hash: 1025fd226eb55473a8511f6d43785781, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 823, Col: 6, Branch: "if(_os_lacing_expand(os\n");
+  printf("[TRACE] Hash: 1025fd226eb55473a8511f6d43785781, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 823, Col: 6, Branch: if(_os_lacing_expand(os,segments+1)) return -1;\n");
   if(_os_lacing_expand(os,segments+1)) return -1;
 
   /* are we in sequence? */
@@ -898,7 +898,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
   }
 
   if(bodysize){
-    printf("[TRACE] Hash: df7fc6c61f5b7a79523bcef7997dbfb5, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 861, Col: 8, Branch: "if(_os_body_expand(os\n");
+    printf("[TRACE] Hash: df7fc6c61f5b7a79523bcef7997dbfb5, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 861, Col: 8, Branch: if(_os_body_expand(os,bodysize)) return -1;\n");
     if(_os_body_expand(os,bodysize)) return -1;
     memcpy(os->body_data+os->body_fill,body,bodysize);
     os->body_fill+=bodysize;
