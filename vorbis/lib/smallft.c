@@ -1246,11 +1246,11 @@ void drft_init(drft_lookup *l,int n){
 }
 
 void drft_clear(drft_lookup *l){
-  printf("[TRACE] Hash: 0e75d8b7336c821abe4c1581c9075239, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1249, Col: 6, Branch: if(l){\n");
+  printf("[TRACE] Hash: 0e75d8b7336c821abe4c1581c9075239, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1249, Col: 6\n");
   if(l){
-    printf("[TRACE] Hash: 07b7619292919660e8282c918aebe270, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1250, Col: 8, Branch: if(l->trigcache)_ogg_free(l->trigcache);\n");
+    printf("[TRACE] Hash: 07b7619292919660e8282c918aebe270, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1250, Col: 8\n");
     if(l->trigcache)_ogg_free(l->trigcache);
-    printf("[TRACE] Hash: dd2c8ed2b849b1540a6590def20757e8, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1251, Col: 8, Branch: if(l->splitcache)_ogg_free(l->splitcache);\n");
+    printf("[TRACE] Hash: dd2c8ed2b849b1540a6590def20757e8, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1251, Col: 8\n");
     if(l->splitcache)_ogg_free(l->splitcache);
     memset(l,0,sizeof(*l));
   }

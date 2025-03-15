@@ -131,7 +131,7 @@ static void _ogg_crc_init(){
 /* init the encode/decode logical stream state */
 
 int ogg_stream_init(ogg_stream_state *os,int serialno){
-  printf("[TRACE] Hash: a1096dfa6707b2593bb246175422b392, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 134, Col: 6, Branch: if(os){\n");
+  printf("[TRACE] Hash: a1096dfa6707b2593bb246175422b392, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 134, Col: 6\n");
   if(os){
     memset(os,0,sizeof(*os));
     os->body_storage=16*1024;
@@ -141,9 +141,9 @@ int ogg_stream_init(ogg_stream_state *os,int serialno){
     os->lacing_vals=_ogg_malloc(os->lacing_storage*sizeof(*os->lacing_vals));
     os->granule_vals=_ogg_malloc(os->lacing_storage*sizeof(*os->granule_vals));
 
-    printf("[TRACE] Hash: 757b4a46a9b3ab8cfa896d8ee6479189, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 143, Col: 46, Branch: if(!os->body_data || !os->lacing_vals || !os->granule_vals){\n");
-    printf("[TRACE] Hash: 9832b8338ef7a087f572c48986a1e574, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 143, Col: 8, Branch: if(!os->body_data || !os->lacing_vals || !os->granule_vals){\n");
-    printf("[TRACE] Hash: a620517932d136fc4a302e8f546b36de, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 143, Col: 26, Branch: if(!os->body_data || !os->lacing_vals || !os->granule_vals){\n");
+    printf("[TRACE] Hash: 757b4a46a9b3ab8cfa896d8ee6479189, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 143, Col: 46\n");
+    printf("[TRACE] Hash: 9832b8338ef7a087f572c48986a1e574, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 143, Col: 8\n");
+    printf("[TRACE] Hash: a620517932d136fc4a302e8f546b36de, File: ogg/src/framing.c, Func: ogg_stream_init, Line: 143, Col: 26\n");
     if(!os->body_data || !os->lacing_vals || !os->granule_vals){
       ogg_stream_clear(os);
       return -1;
@@ -158,21 +158,21 @@ int ogg_stream_init(ogg_stream_state *os,int serialno){
 
 /* async/delayed error detection for the ogg_stream_state */
 int ogg_stream_check(ogg_stream_state *os){
-  printf("[TRACE] Hash: 7d92c24715eeefe8071f1772e495ea90, File: ogg/src/framing.c, Func: ogg_stream_check, Line: 157, Col: 13, Branch: if(!os || !os->body_data) return -1;\n");
-  printf("[TRACE] Hash: e22b4c9e976a4822abe7211f5aece37b, File: ogg/src/framing.c, Func: ogg_stream_check, Line: 157, Col: 6, Branch: if(!os || !os->body_data) return -1;\n");
+  printf("[TRACE] Hash: 7d92c24715eeefe8071f1772e495ea90, File: ogg/src/framing.c, Func: ogg_stream_check, Line: 157, Col: 13\n");
+  printf("[TRACE] Hash: e22b4c9e976a4822abe7211f5aece37b, File: ogg/src/framing.c, Func: ogg_stream_check, Line: 157, Col: 6\n");
   if(!os || !os->body_data) return -1;
   return 0;
 }
 
 /* _clear does not free os, only the non-flat storage within */
 int ogg_stream_clear(ogg_stream_state *os){
-  printf("[TRACE] Hash: 056f99e8dba7b38cc7ec7eabf2f8f4fc, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 163, Col: 6, Branch: if(os){\n");
+  printf("[TRACE] Hash: 056f99e8dba7b38cc7ec7eabf2f8f4fc, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 163, Col: 6\n");
   if(os){
-    printf("[TRACE] Hash: a67689475bccc3f4f6e137065f2be39f, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 164, Col: 8, Branch: if(os->body_data)_ogg_free(os->body_data);\n");
+    printf("[TRACE] Hash: a67689475bccc3f4f6e137065f2be39f, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 164, Col: 8\n");
     if(os->body_data)_ogg_free(os->body_data);
-    printf("[TRACE] Hash: ed27022b9427fa08f92c86cf709f397f, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 165, Col: 8, Branch: if(os->lacing_vals)_ogg_free(os->lacing_vals);\n");
+    printf("[TRACE] Hash: ed27022b9427fa08f92c86cf709f397f, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 165, Col: 8\n");
     if(os->lacing_vals)_ogg_free(os->lacing_vals);
-    printf("[TRACE] Hash: c3ce702557c4d7eddd90e0b939b66b79, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 166, Col: 8, Branch: if(os->granule_vals)_ogg_free(os->granule_vals);\n");
+    printf("[TRACE] Hash: c3ce702557c4d7eddd90e0b939b66b79, File: ogg/src/framing.c, Func: ogg_stream_clear, Line: 166, Col: 8\n");
     if(os->granule_vals)_ogg_free(os->granule_vals);
 
     memset(os,0,sizeof(*os));
@@ -263,7 +263,7 @@ static ogg_uint32_t _os_update_crc(ogg_uint32_t crc, unsigned char *buffer, int 
 }
 
 void ogg_page_checksum_set(ogg_page *og){
-  printf("[TRACE] Hash: 851277c3f8f1c17dde9476bd3e03c6eb, File: ogg/src/framing.c, Func: ogg_page_checksum_set, Line: 256, Col: 6, Branch: if(og){\n");
+  printf("[TRACE] Hash: 851277c3f8f1c17dde9476bd3e03c6eb, File: ogg/src/framing.c, Func: ogg_page_checksum_set, Line: 256, Col: 6\n");
   if(og){
     ogg_uint32_t crc_reg=0;
 
@@ -567,7 +567,7 @@ int ogg_stream_eos(ogg_stream_state *os){
 
 /* initialize the struct to a known state */
 int ogg_sync_init(ogg_sync_state *oy){
-  printf("[TRACE] Hash: 4b3f0b1d6946871d7e6a8a1141149463, File: ogg/src/framing.c, Func: ogg_sync_init, Line: 559, Col: 6, Branch: if(oy){\n");
+  printf("[TRACE] Hash: 4b3f0b1d6946871d7e6a8a1141149463, File: ogg/src/framing.c, Func: ogg_sync_init, Line: 559, Col: 6\n");
   if(oy){
     oy->storage = -1; /* used as a readiness flag */
     memset(oy,0,sizeof(*oy));
@@ -577,9 +577,9 @@ int ogg_sync_init(ogg_sync_state *oy){
 
 /* clear non-flat storage within */
 int ogg_sync_clear(ogg_sync_state *oy){
-  printf("[TRACE] Hash: 555a79dcd63a9e16ccd77d4124e133f1, File: ogg/src/framing.c, Func: ogg_sync_clear, Line: 568, Col: 6, Branch: if(oy){\n");
+  printf("[TRACE] Hash: 555a79dcd63a9e16ccd77d4124e133f1, File: ogg/src/framing.c, Func: ogg_sync_clear, Line: 568, Col: 6\n");
   if(oy){
-    printf("[TRACE] Hash: 6672421315680230d5ca554fb99d6d96, File: ogg/src/framing.c, Func: ogg_sync_clear, Line: 569, Col: 8, Branch: if(oy->data)_ogg_free(oy->data);\n");
+    printf("[TRACE] Hash: 6672421315680230d5ca554fb99d6d96, File: ogg/src/framing.c, Func: ogg_sync_clear, Line: 569, Col: 8\n");
     if(oy->data)_ogg_free(oy->data);
     memset(oy,0,sizeof(*oy));
   }
@@ -595,17 +595,17 @@ int ogg_sync_destroy(ogg_sync_state *oy){
 }
 
 int ogg_sync_check(ogg_sync_state *oy){
-  printf("[TRACE] Hash: a2247bcd5c6d3a69e53b6b16fe5776f2, File: ogg/src/framing.c, Func: ogg_sync_check, Line: 584, Col: 6, Branch: if(oy->storage<0) return -1;\n");
+  printf("[TRACE] Hash: a2247bcd5c6d3a69e53b6b16fe5776f2, File: ogg/src/framing.c, Func: ogg_sync_check, Line: 584, Col: 6\n");
   if(oy->storage<0) return -1;
   return 0;
 }
 
 char *ogg_sync_buffer(ogg_sync_state *oy, long size){
-  printf("[TRACE] Hash: 00139123fb9583f93ecc4b89bc8eccdd, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 589, Col: 6, Branch: if(ogg_sync_check(oy)) return NULL;\n");
+  printf("[TRACE] Hash: 00139123fb9583f93ecc4b89bc8eccdd, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 589, Col: 6\n");
   if(ogg_sync_check(oy)) return NULL;
 
   /* first, clear out any space that has been previously returned */
-  printf("[TRACE] Hash: d50de55615aee6eb6f8803c25f5752f5, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 592, Col: 6, Branch: if(oy->returned){\n");
+  printf("[TRACE] Hash: d50de55615aee6eb6f8803c25f5752f5, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 592, Col: 6\n");
   if(oy->returned){
     oy->fill-=oy->returned;
     if(oy->fill>0)
@@ -613,24 +613,24 @@ char *ogg_sync_buffer(ogg_sync_state *oy, long size){
     oy->returned=0;
   }
 
-  printf("[TRACE] Hash: 050395cd5578ae2a1eb782a01bb84a23, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 599, Col: 6, Branch: if(size>oy->storage-oy->fill){\n");
+  printf("[TRACE] Hash: 050395cd5578ae2a1eb782a01bb84a23, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 599, Col: 6\n");
   if(size>oy->storage-oy->fill){
     /* We need to extend the internal buffer */
     long newsize;
     void *ret;
 
-    printf("[TRACE] Hash: 998dff0d7e830627bfaa007152e922d3, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 604, Col: 8, Branch: if(size>INT_MAX-4096-oy->fill){\n");
+    printf("[TRACE] Hash: 998dff0d7e830627bfaa007152e922d3, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 604, Col: 8\n");
     if(size>INT_MAX-4096-oy->fill){
       ogg_sync_clear(oy);
       return NULL;
     }
     newsize=size+oy->fill+4096; /* an extra page to be nice */
-    printf("[TRACE] Hash: 5a511a7b3704eb4ba66f836436714c16, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 609, Col: 8, Branch: if(oy->data)\n");
+    printf("[TRACE] Hash: 5a511a7b3704eb4ba66f836436714c16, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 609, Col: 8\n");
     if(oy->data)
       ret=_ogg_realloc(oy->data,newsize);
     else
       ret=_ogg_malloc(newsize);
-    printf("[TRACE] Hash: 96ab7c6b699cf65e47381993fcb4eda7, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 613, Col: 8, Branch: if(!ret){\n");
+    printf("[TRACE] Hash: 96ab7c6b699cf65e47381993fcb4eda7, File: ogg/src/framing.c, Func: ogg_sync_buffer, Line: 613, Col: 8\n");
     if(!ret){
       ogg_sync_clear(oy);
       return NULL;
@@ -644,9 +644,9 @@ char *ogg_sync_buffer(ogg_sync_state *oy, long size){
 }
 
 int ogg_sync_wrote(ogg_sync_state *oy, long bytes){
-  printf("[TRACE] Hash: 1afcb5d689494d1e7bd0645bf4a89ab4, File: ogg/src/framing.c, Func: ogg_sync_wrote, Line: 626, Col: 6, Branch: if(ogg_sync_check(oy))return -1;\n");
+  printf("[TRACE] Hash: 1afcb5d689494d1e7bd0645bf4a89ab4, File: ogg/src/framing.c, Func: ogg_sync_wrote, Line: 626, Col: 6\n");
   if(ogg_sync_check(oy))return -1;
-  printf("[TRACE] Hash: 32cd63ba2c85f3816ea55cc87b5139c1, File: ogg/src/framing.c, Func: ogg_sync_wrote, Line: 627, Col: 6, Branch: if(oy->fill+bytes>oy->storage)return -1;\n");
+  printf("[TRACE] Hash: 32cd63ba2c85f3816ea55cc87b5139c1, File: ogg/src/framing.c, Func: ogg_sync_wrote, Line: 627, Col: 6\n");
   if(oy->fill+bytes>oy->storage)return -1;
   oy->fill+=bytes;
   return(0);
@@ -667,28 +667,28 @@ long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
   unsigned char *next;
   long bytes;
 
-  printf("[TRACE] Hash: 04b11a3bc804cdb2f69eb0a172f3baaf, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 647, Col: 6, Branch: if(ogg_sync_check(oy))return 0;\n");
+  printf("[TRACE] Hash: 04b11a3bc804cdb2f69eb0a172f3baaf, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 647, Col: 6\n");
   if(ogg_sync_check(oy))return 0;
 
   page=oy->data+oy->returned;
   bytes=oy->fill-oy->returned;
 
-  printf("[TRACE] Hash: 6d3fdfb83c0da518d02d67cc5c6a31b4, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 652, Col: 6, Branch: if(oy->headerbytes==0){\n");
+  printf("[TRACE] Hash: 6d3fdfb83c0da518d02d67cc5c6a31b4, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 652, Col: 6\n");
   if(oy->headerbytes==0){
     int headerbytes,i;
-    printf("[TRACE] Hash: dc97c404dcc1bfa4a2ff60767c313d4f, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 654, Col: 8, Branch: if(bytes<27)return(0); /* not enough for a header */\n");
+    printf("[TRACE] Hash: dc97c404dcc1bfa4a2ff60767c313d4f, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 654, Col: 8\n");
     if(bytes<27)return(0); /* not enough for a header */
 
     /* verify capture pattern */
     if(memcmp(page,"OggS",4))goto sync_fail;
 
     headerbytes=page[26]+27;
-    printf("[TRACE] Hash: 90460e79873d00f9a14db54f291df843, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 660, Col: 8, Branch: if(bytes<headerbytes)return(0); /* not enough for header + seg table */\n");
+    printf("[TRACE] Hash: 90460e79873d00f9a14db54f291df843, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 660, Col: 8\n");
     if(bytes<headerbytes)return(0); /* not enough for header + seg table */
 
     /* count up body length in the segment table */
 
-    printf("[TRACE] Hash: ae372e856907bbc3c0979655b62839a5, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 664, Col: 13, Branch: for(i=0;i<page[26];i++)\n");
+    printf("[TRACE] Hash: ae372e856907bbc3c0979655b62839a5, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 664, Col: 13\n");
     for(i=0;i<page[26];i++)
       oy->bodybytes+=page[27+i];
     oy->headerbytes=headerbytes;
@@ -728,7 +728,7 @@ long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
 
   /* yes, have a whole page all ready to go */
   {
-    printf("[TRACE] Hash: 99f9f75b033e4d4008bb6f9e74d60e0a, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 703, Col: 8, Branch: if(og){\n");
+    printf("[TRACE] Hash: 99f9f75b033e4d4008bb6f9e74d60e0a, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 703, Col: 8\n");
     if(og){
       og->header=page;
       og->header_len=oy->headerbytes;
@@ -750,7 +750,7 @@ long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
 
   /* search for possible capture */
   next=memchr(page+1,'O',bytes-1);
-  printf("[TRACE] Hash: c931d7dfeddf00e4ce31f01d02b0b65f, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 724, Col: 6, Branch: if(!next)\n");
+  printf("[TRACE] Hash: c931d7dfeddf00e4ce31f01d02b0b65f, File: ogg/src/framing.c, Func: ogg_sync_pageseek, Line: 724, Col: 6\n");
   if(!next)
     next=oy->data+oy->fill;
 
@@ -817,7 +817,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
   long pageno=ogg_page_pageno(og);
   int segments=header[26];
 
-  printf("[TRACE] Hash: eeaf419a94c8b00c8503da6ff94ef500, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 790, Col: 6, Branch: if(ogg_stream_check(os)) return -1;\n");
+  printf("[TRACE] Hash: eeaf419a94c8b00c8503da6ff94ef500, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 790, Col: 6\n");
   if(ogg_stream_check(os)) return -1;
 
   /* clean up 'returned data' */
@@ -828,7 +828,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
     /* body data */
     if(br){
       os->body_fill-=br;
-      printf("[TRACE] Hash: af4fe69cdc67ffc1e945ab2f64765351, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 800, Col: 10, Branch: if(os->body_fill)\n");
+      printf("[TRACE] Hash: af4fe69cdc67ffc1e945ab2f64765351, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 800, Col: 10\n");
       if(os->body_fill)
         memmove(os->body_data,os->body_data+br,os->body_fill);
       os->body_returned=0;
@@ -836,7 +836,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
 
     if(lr){
       /* segment table */
-      printf("[TRACE] Hash: 4441cdea0666114f7cbb3a7333e85ca4, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 807, Col: 10, Branch: if(os->lacing_fill-lr){\n");
+      printf("[TRACE] Hash: 4441cdea0666114f7cbb3a7333e85ca4, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 807, Col: 10\n");
       if(os->lacing_fill-lr){
         memmove(os->lacing_vals,os->lacing_vals+lr,
                 (os->lacing_fill-lr)*sizeof(*os->lacing_vals));
@@ -850,12 +850,12 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
   }
 
   /* check the serial number */
-  printf("[TRACE] Hash: 51c6b325971f2da2f304e4cd694a8343, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 820, Col: 6, Branch: if(serialno!=os->serialno)return(-1);\n");
+  printf("[TRACE] Hash: 51c6b325971f2da2f304e4cd694a8343, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 820, Col: 6\n");
   if(serialno!=os->serialno)return(-1);
-  printf("[TRACE] Hash: d879e09daf9ac4bb20fb6a214988889f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 821, Col: 6, Branch: if(version>0)return(-1);\n");
+  printf("[TRACE] Hash: d879e09daf9ac4bb20fb6a214988889f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 821, Col: 6\n");
   if(version>0)return(-1);
 
-  printf("[TRACE] Hash: 1025fd226eb55473a8511f6d43785781, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 823, Col: 6, Branch: if(_os_lacing_expand(os,segments+1)) return -1;\n");
+  printf("[TRACE] Hash: 1025fd226eb55473a8511f6d43785781, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 823, Col: 6\n");
   if(_os_lacing_expand(os,segments+1)) return -1;
 
   /* are we in sequence? */
@@ -863,7 +863,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
     int i;
 
     /* unroll previous partial packet (if any) */
-    printf("[TRACE] Hash: 28363c4fc2df3b9326c370f265447e2f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 830, Col: 29, Branch: for(i=os->lacing_packet;i<os->lacing_fill;i++)\n");
+    printf("[TRACE] Hash: 28363c4fc2df3b9326c370f265447e2f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 830, Col: 29\n");
     for(i=os->lacing_packet;i<os->lacing_fill;i++)
       os->body_fill-=os->lacing_vals[i]&0xff;
     os->lacing_fill=os->lacing_packet;
@@ -877,12 +877,12 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
 
   /* are we a 'continued packet' page?  If so, we may need to skip
      some segments */
-  printf("[TRACE] Hash: 423a4abf238fd113e352a45ab8c2c650, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 843, Col: 6, Branch: if(continued){\n");
+  printf("[TRACE] Hash: 423a4abf238fd113e352a45ab8c2c650, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 843, Col: 6\n");
   if(continued){
-    printf("[TRACE] Hash: ce8e313bdc56d95a6c599f50955668e1, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 844, Col: 8, Branch: if(os->lacing_fill<1 ||\n");
+    printf("[TRACE] Hash: ce8e313bdc56d95a6c599f50955668e1, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 844, Col: 8\n");
     if(os->lacing_fill<1 ||
        (os->lacing_vals[os->lacing_fill-1]&0xff)<255 ||
-       os->lacing_vals[os->lacing_fill-1]==0x400)printf("[TRACE] Hash: 56caf389b36887443b9338b1a79849d8, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 846, Col: 8, Branch: os->lacing_vals[os->lacing_fill-1]==0x400){\n");
+       os->lacing_vals[os->lacing_fill-1]==0x400)printf("[TRACE] Hash: 56caf389b36887443b9338b1a79849d8, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 846, Col: 8\n");
        {
       bos=0;
       for(;segptr<segments;segptr++){
@@ -898,7 +898,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
   }
 
   if(bodysize){
-    printf("[TRACE] Hash: df7fc6c61f5b7a79523bcef7997dbfb5, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 861, Col: 8, Branch: if(_os_body_expand(os,bodysize)) return -1;\n");
+    printf("[TRACE] Hash: df7fc6c61f5b7a79523bcef7997dbfb5, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 861, Col: 8\n");
     if(_os_body_expand(os,bodysize)) return -1;
     memcpy(os->body_data+os->body_fill,body,bodysize);
     os->body_fill+=bodysize;
@@ -906,13 +906,13 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
 
   {
     int saved=-1;
-    printf("[TRACE] Hash: 3a49726b0ef1455b518e4a551342bdcd, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 868, Col: 11, Branch: while(segptr<segments){\n");
+    printf("[TRACE] Hash: 3a49726b0ef1455b518e4a551342bdcd, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 868, Col: 11\n");
     while(segptr<segments){
       int val=header[27+segptr];
       os->lacing_vals[os->lacing_fill]=val;
       os->granule_vals[os->lacing_fill]=-1;
 
-      printf("[TRACE] Hash: da7ad5069d71046a335eb2e773f9235f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 873, Col: 10, Branch: if(bos){\n");
+      printf("[TRACE] Hash: da7ad5069d71046a335eb2e773f9235f, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 873, Col: 10\n");
       if(bos){
         os->lacing_vals[os->lacing_fill]|=0x100;
         bos=0;
@@ -935,7 +935,7 @@ int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
 
   if(eos){
     os->e_o_s=1;
-    printf("[TRACE] Hash: 8fe437e105be123daa941f2cf871503b, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 895, Col: 8, Branch: if(os->lacing_fill>0)\n");
+    printf("[TRACE] Hash: 8fe437e105be123daa941f2cf871503b, File: ogg/src/framing.c, Func: ogg_stream_pagein, Line: 895, Col: 8\n");
     if(os->lacing_fill>0)
       os->lacing_vals[os->lacing_fill-1]|=0x200;
   }
@@ -958,7 +958,7 @@ int ogg_sync_reset(ogg_sync_state *oy){
 }
 
 int ogg_stream_reset(ogg_stream_state *os){
-  printf("[TRACE] Hash: 9003d7d74600549a92afbe18e336241c, File: ogg/src/framing.c, Func: ogg_stream_reset, Line: 917, Col: 6, Branch: if(ogg_stream_check(os)) return -1;\n");
+  printf("[TRACE] Hash: 9003d7d74600549a92afbe18e336241c, File: ogg/src/framing.c, Func: ogg_stream_reset, Line: 917, Col: 6\n");
   if(ogg_stream_check(os)) return -1;
 
   os->body_fill=0;
@@ -980,7 +980,7 @@ int ogg_stream_reset(ogg_stream_state *os){
 }
 
 int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
-  printf("[TRACE] Hash: 47458dfaffe2b767cabe028b4a26f1bb, File: ogg/src/framing.c, Func: ogg_stream_reset_serialno, Line: 938, Col: 6, Branch: if(ogg_stream_check(os)) return -1;\n");
+  printf("[TRACE] Hash: 47458dfaffe2b767cabe028b4a26f1bb, File: ogg/src/framing.c, Func: ogg_stream_reset_serialno, Line: 938, Col: 6\n");
   if(ogg_stream_check(os)) return -1;
   ogg_stream_reset(os);
   os->serialno=serialno;
@@ -1042,7 +1042,7 @@ static int _packetout(ogg_stream_state *os,ogg_packet *op,int adv){
 }
 
 int ogg_stream_packetout(ogg_stream_state *os,ogg_packet *op){
-  printf("[TRACE] Hash: 58dba54ec1b754ab14dd9b392a63ab42, File: ogg/src/framing.c, Func: ogg_stream_packetout, Line: 999, Col: 6, Branch: if(ogg_stream_check(os)) return 0;\n");
+  printf("[TRACE] Hash: 58dba54ec1b754ab14dd9b392a63ab42, File: ogg/src/framing.c, Func: ogg_stream_packetout, Line: 999, Col: 6\n");
   if(ogg_stream_check(os)) return 0;
   return _packetout(os,op,1);
 }
