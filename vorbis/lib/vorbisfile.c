@@ -65,9 +65,7 @@
 
 static long _get_data(OggVorbis_File *vf){
   errno=0;
-  printf("[TRACE] Arrive branch <hash> at file: <file>, func: <func>, lno: <lno>, cno: <cno>, data: <data>, value: <value>");
   if(!(vf->callbacks.read_func))return(-1);
-  printf("[TRACE] Arrive branch <hash> at file: <file>, func: <func>, lno: <lno>, cno: <cno>, data: <data>, value: <value>");
   if(vf->datasource){
     char *buffer=ogg_sync_buffer(&vf->oy,READSIZE);
     long bytes=(vf->callbacks.read_func)(buffer,1,READSIZE,vf->datasource);

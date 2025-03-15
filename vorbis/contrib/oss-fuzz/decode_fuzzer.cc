@@ -37,10 +37,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
   int eof = 0;
   char buf[4096];
   int read_result;
-  printf("[TRACE] Arrive branch <hash> at file: <file>, func: <func>, lno: <lno>, cno: <cno>, data: <data>, value: <value>");
   while (!eof) {
     read_result = ov_read(&vf, buf, sizeof(buf), 0, 2, 1, &current_section);
-    printf("[TRACE] Arrive branch <hash> at file: <file>, func: <func>, lno: <lno>, cno: <cno>, data: <data>, value: <value>");
     if (read_result != OV_HOLE && read_result <= 0) {
       eof = 1;
     }
