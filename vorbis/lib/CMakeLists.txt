@@ -2,7 +2,6 @@ set(VORBIS_PUBLIC_HEADERS
     ../include/vorbis/codec.h
     ../include/vorbis/vorbisenc.h
     ../include/vorbis/vorbisfile.h
-    ../include/vorbis/instrumentation.h
 )
 
 set(VORBIS_HEADERS

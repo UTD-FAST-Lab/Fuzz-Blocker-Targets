@@ -2,7 +2,6 @@
 #include <string.h>
 #include <cstdint>
 #include <vorbis/vorbisfile.h>
-#include <vorbis/instrumentation.h>
 
 struct vorbis_data {
   const uint8_t *current;
@@ -23,7 +22,6 @@ size_t read_func(void *ptr, size_t size1, size_t size2, void *datasource) {
 
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
-  initialize_guards(); 
   ov_callbacks memory_callbacks = {0};
   memory_callbacks.read_func = read_func;
   vorbis_data data_st;
@@ -39,10 +37,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
   int eof = 0;
   char buf[4096];
   int read_result;
-  __sanitizer_cov_trace_pc_guard(&guards[40]);
+  printf("[TRACE] Arrive branch <hash> at file: <file>, func: <func>, lno: <lno>, cno: <cno>, data: <data>, value: <value>");
   while (!eof) {
     read_result = ov_read(&vf, buf, sizeof(buf), 0, 2, 1, &current_section);
-    __sanitizer_cov_trace_pc_guard(&guards[41]);
+    printf("[TRACE] Arrive branch <hash> at file: <file>, func: <func>, lno: <lno>, cno: <cno>, data: <data>, value: <value>");
     if (read_result != OV_HOLE && read_result <= 0) {
       eof = 1;
     }
