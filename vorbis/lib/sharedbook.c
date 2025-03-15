@@ -138,9 +138,11 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
           marker[j]=marker[j-1]<<1;
         }else
           break;
-    }else
+    }else if(sparsecount==0){
       printf("[TRACE] Hash: a59705b90e0994861c6562d833be67c4, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 131, Col: 10, Branch: if(sparsecount==0)count++;\n");
-      if(sparsecount==0)count++;
+      count++;
+    }
+    printf("[TRACE] Hash: a59705b90e0994861c6562d833be67c4, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 131, Col: 10, Branch: if(sparsecount==0)count++;\n");
   }
 
   /* any underpopulated tree must be rejected. */
@@ -160,7 +162,7 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
 
   /* bitreverse the words because our bitwise packer/unpacker is LSb
      endian */
-  printf("[TRACE] Hash: 38f0e51c4672be5489922c59d1621685, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 148, Col: 19, Branch: "for(i=0\n");
+  printf("[TRACE] Hash: 38f0e51c4672be5489922c59d1621685, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 148, Col: 19, Branch: for(i=0,count=0;i<n;i++){\n");
   for(i=0,count=0;i<n;i++){
     ogg_uint32_t temp=0;
     for(j=0;j<l[i];j++){
@@ -416,14 +418,14 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
     c->valuelist=_book_unquantize(s,n,sortindex);
     c->dec_index=_ogg_malloc(n*sizeof(*c->dec_index));
 
-    printf("[TRACE] Hash: 967ddb94d1147672b1bce236e3b5fcd8, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 381, Col: 17, Branch: "for(n=0\n");
+    printf("[TRACE] Hash: 967ddb94d1147672b1bce236e3b5fcd8, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 381, Col: 17, Branch: for(n=0,i=0;i<s->entries;i++)\n");
     for(n=0,i=0;i<s->entries;i++)
       if(s->lengthlist[i]>0)
         c->dec_index[sortindex[n++]]=i;
 
     c->dec_codelengths=_ogg_malloc(n*sizeof(*c->dec_codelengths));
     c->dec_maxlength=0;
-    printf("[TRACE] Hash: 34e61a349cc24bcb4d814d79d217333e, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 387, Col: 17, Branch: "for(n=0\n");
+    printf("[TRACE] Hash: 34e61a349cc24bcb4d814d79d217333e, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 387, Col: 17, Branch: for(n=0,i=0;i<s->entries;i++)\n");
     for(n=0,i=0;i<s->entries;i++)
       if(s->lengthlist[i]>0){
         c->dec_codelengths[sortindex[n++]]=s->lengthlist[i];

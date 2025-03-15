@@ -371,7 +371,7 @@ int vorbis_synthesis_idheader(ogg_packet *op){
     if(!op->b_o_s)
       return(0); /* Not the initial packet */
 
-    printf("[TRACE] Hash: 44d14519d5f2c23c05b123048bb0a9c6, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 362, Col: 8, Branch: "if(oggpack_read(&opb\n");
+    printf("[TRACE] Hash: 44d14519d5f2c23c05b123048bb0a9c6, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 362, Col: 8, Branch: if(oggpack_read(&opb,8) != 1)\n");
     if(oggpack_read(&opb,8) != 1)
       return 0; /* not an ID header */
 
@@ -405,7 +405,7 @@ int vorbis_synthesis_headerin(vorbis_info *vi,vorbis_comment *vc,ogg_packet *op)
       int packtype=oggpack_read(&opb,8);
       memset(buffer,0,6);
       _v_readstring(&opb,buffer,6);
-      printf("[TRACE] Hash: be979ff82ac89f5d90b192caf77d7152, File: vorbis/lib/info.c, Func: vorbis_synthesis_headerin, Line: 394, Col: 10, Branch: "if(memcmp(buffer\n");
+      printf("[TRACE] Hash: be979ff82ac89f5d90b192caf77d7152, File: vorbis/lib/info.c, Func: vorbis_synthesis_headerin, Line: 394, Col: 10, Branch: if(memcmp(buffer,\"vorbis\",6)){\n");
       if(memcmp(buffer,"vorbis",6)){
         /* not a vorbis header */
         return(OV_ENOTVORBIS);

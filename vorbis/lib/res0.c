@@ -850,7 +850,7 @@ int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
 
     printf("[TRACE] Hash: 98f45eecf39799e98ffac09b5ef7d50c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 823, Col: 13, Branch: for(s=0;s<look->stages;s++){\n");
     for(s=0;s<look->stages;s++){
-      printf("[TRACE] Hash: 0eff2615af72df5492df04409d9d30ea, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 824, Col: 19, Branch: "for(i=0\n");
+      printf("[TRACE] Hash: 0eff2615af72df5492df04409d9d30ea, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 824, Col: 19, Branch: for(i=0,l=0;i<partvals;l++){\n");
       for(i=0,l=0;i<partvals;l++){
 
         if(s==0){
