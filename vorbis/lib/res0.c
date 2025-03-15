@@ -873,7 +873,7 @@ int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
 
             printf("[TRACE] Hash: 1b69d4ca01a17960153dfbcff177c6b9, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 839, Col: 16, Branch: if(stagebook){\n");
             if(stagebook){
-              printf("[TRACE] Hash: e5e3913c079a48ac37a36b96dd31d20c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 840, Col: 18, Branch: "if(vorbis_book_decodevv_add(stagebook\n");
+              printf("[TRACE] Hash: e5e3913c079a48ac37a36b96dd31d20c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 840, Col: 18, Branch: if(vorbis_book_decodevv_add(stagebook\n");
               if(vorbis_book_decodevv_add(stagebook,in,
                                           i*samples_per_partition+info->begin,ch,
                                           &vb->opb,samples_per_partition)==-1)
