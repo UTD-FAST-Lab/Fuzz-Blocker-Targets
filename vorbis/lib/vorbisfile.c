@@ -955,11 +955,14 @@ static int _ov_open2(OggVorbis_File *vf){
 
 /* clear out the OggVorbis_File struct */
 int ov_clear(OggVorbis_File *vf){
+  printf("[TRACE] Hash: 3ece80ab1a5f66efd93937b604e2ae43, File: vorbis/lib/vorbisfile.c, Func: ov_clear, Line: 958, Col: 6, Branch: if(vf){\n");
   if(vf){
     vorbis_block_clear(&vf->vb);
     vorbis_dsp_clear(&vf->vd);
     ogg_stream_clear(&vf->os);
 
+    printf("[TRACE] Hash: 41db3074b2b54cdf0cbea5843b4cd8fe, File: vorbis/lib/vorbisfile.c, Func: ov_clear, Line: 963, Col: 18, Branch: if(vf->vi && vf->links){\n");
+    printf("[TRACE] Hash: f0cd1aa70e23ffc60af4cf08e04b13f0, File: vorbis/lib/vorbisfile.c, Func: ov_clear, Line: 963, Col: 8, Branch: if(vf->vi && vf->links){\n");
     if(vf->vi && vf->links){
       int i;
       for(i=0;i<vf->links;i++){
@@ -970,10 +973,12 @@ int ov_clear(OggVorbis_File *vf){
       _ogg_free(vf->vc);
     }
     if(vf->dataoffsets)_ogg_free(vf->dataoffsets);
+    printf("[TRACE] Hash: ebab5c02e0ae1debb1540f124cdb8f12, File: vorbis/lib/vorbisfile.c, Func: ov_clear, Line: 973, Col: 8, Branch: if(vf->pcmlengths)_ogg_free(vf->pcmlengths);\n");
     if(vf->pcmlengths)_ogg_free(vf->pcmlengths);
     if(vf->serialnos)_ogg_free(vf->serialnos);
     if(vf->offsets)_ogg_free(vf->offsets);
     ogg_sync_clear(&vf->oy);
+    printf("[TRACE] Hash: 1c191587196b7b6845d338efee3599bc, File: vorbis/lib/vorbisfile.c, Func: ov_clear, Line: 977, Col: 26, Branch: if(vf->datasource && vf->callbacks.close_func)\n");
     if(vf->datasource && vf->callbacks.close_func)
       (vf->callbacks.close_func)(vf->datasource);
     memset(vf,0,sizeof(*vf));
@@ -1876,6 +1881,7 @@ double ov_time_tell(OggVorbis_File *vf){
     initialized */
 
 vorbis_info *ov_info(OggVorbis_File *vf,int link){
+  printf("[TRACE] Hash: 6ff6a33930039a434e944297e3e3f211, File: vorbis/lib/vorbisfile.c, Func: ov_info, Line: 1879, Col: 6, Branch: if(vf->seekable){\n");
   if(vf->seekable){
     if(link<0)
       if(vf->ready_state>=STREAMSET)
@@ -1963,10 +1969,13 @@ long ov_read_filter(OggVorbis_File *vf,char *buffer,int length,
   float **pcm;
   long samples;
 
+  printf("[TRACE] Hash: 1d98690008b9277be546c9013186f920, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1966, Col: 6, Branch: if(vf->ready_state<OPENED)return(OV_EINVAL);\n");
   if(vf->ready_state<OPENED)return(OV_EINVAL);
+  printf("[TRACE] Hash: e3e6aca29e7f7091af929aa34893efda, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1967, Col: 6, Branch: if(word<=0)return(OV_EINVAL);\n");
   if(word<=0)return(OV_EINVAL);
 
   while(1){
+    printf("[TRACE] Hash: c862e136e6e6b5b074b6cf8c35c5cdf7, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1970, Col: 8, Branch: if(vf->ready_state==INITSET){\n");
     if(vf->ready_state==INITSET){
       samples=vorbis_synthesis_pcmout(&vf->vd,&pcm);
       if(samples)break;
@@ -1975,14 +1984,17 @@ long ov_read_filter(OggVorbis_File *vf,char *buffer,int length,
     /* suck in another packet */
     {
       int ret=_fetch_and_process_packet(vf,NULL,1,1);
+      printf("[TRACE] Hash: a12797048d8ff2a0d869257d9833089d, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1978, Col: 10, Branch: if(ret==OV_EOF)\n");
       if(ret==OV_EOF)
         return(0);
+      printf("[TRACE] Hash: 395592526036c63c12dc55be4c8a12ad, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1980, Col: 10, Branch: if(ret<=0)\n");
       if(ret<=0)
         return(ret);
     }
 
   }
 
+  printf("[TRACE] Hash: d39501065fdb23557a63d5443781d352, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1986, Col: 6, Branch: if(samples>0){\n");
   if(samples>0){
 
     /* yay! proceed to pack data into the byte buffer */
@@ -1991,19 +2003,25 @@ long ov_read_filter(OggVorbis_File *vf,char *buffer,int length,
     long bytespersample=word * channels;
     vorbis_fpu_control fpu;
 
+    printf("[TRACE] Hash: 1ea7649df8bf00de5d12e421074f962c, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1994, Col: 8, Branch: if(channels<1||channels>255)return(OV_EINVAL);\n");
+    printf("[TRACE] Hash: 93ee34472cd18e7a0514f3cc3630e06a, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1994, Col: 20, Branch: if(channels<1||channels>255)return(OV_EINVAL);\n");
     if(channels<1||channels>255)return(OV_EINVAL);
+    printf("[TRACE] Hash: 7acf6a86b15de81d76a50a19492a6c93, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1995, Col: 8, Branch: if(samples>length/bytespersample)samples=length/bytespersample;\n");
     if(samples>length/bytespersample)samples=length/bytespersample;
 
+    printf("[TRACE] Hash: 60415a6a8ab898c4b0721d1bc51d04e0, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 1997, Col: 8, Branch: if(samples <= 0)\n");
     if(samples <= 0)
       return OV_EINVAL;
 
     /* Here. */
+    printf("[TRACE] Hash: 2929e5b0a494b37e200f020a50ac7ec0, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2001, Col: 8, Branch: if(filter)\n");
     if(filter)
       filter(pcm,channels,samples,filter_param);
 
     /* a tight loop to pack each size */
     {
       int val;
+      printf("[TRACE] Hash: d5ee8adc2641578bde52ef3f5e1ac8b7, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2007, Col: 10, Branch: if(word==1){\n");
       if(word==1){
         int off=(sgned?0:128);
         vorbis_fpu_setround(&fpu);
@@ -2016,19 +2034,26 @@ long ov_read_filter(OggVorbis_File *vf,char *buffer,int length,
           }
         vorbis_fpu_restore(fpu);
       }else{
+        printf("[TRACE] Hash: 20039ecc4ecafbc402ea92cbd11927f5, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2019, Col: 18, Branch: int off=(sgned?0:32768);\n");
         int off=(sgned?0:32768);
 
+        printf("[TRACE] Hash: f2a66e7ebeee68aebb7ae3e6b3da14a7, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2021, Col: 12, Branch: if(host_endian==bigendianp){\n");
         if(host_endian==bigendianp){
+          printf("[TRACE] Hash: 14eba6a973cd5325579af8e91e635ad8, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2022, Col: 14, Branch: if(sgned){\n");
           if(sgned){
 
             vorbis_fpu_setround(&fpu);
+            printf("[TRACE] Hash: 74e393c5790bdfb91ff41d44ffc76ff1, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2025, Col: 21, Branch: for(i=0;i<channels;i++) { /* It's faster in this order */\n");
             for(i=0;i<channels;i++) { /* It's faster in this order */
               float *src=pcm[i];
               short *dest=((short *)buffer)+i;
+              printf("[TRACE] Hash: b99ad6a8bd61d5e068aff23c7f027779, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2028, Col: 23, Branch: for(j=0;j<samples;j++) {\n");
               for(j=0;j<samples;j++) {
                 val=vorbis_ftoi(src[j]*32768.f);
+                printf("[TRACE] Hash: da8d2f93895ab833aa2caf850d42abd4, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2030, Col: 20, Branch: if(val>32767)val=32767;\n");
                 if(val>32767)val=32767;
-                else if(val<-32768)val=-32768;
+                else printf("[TRACE] Hash: 210f156b308964ae9213728023d16461, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2031, Col: 25, Branch: else if(val<-32768)val=-32768;\n");
+                if(val<-32768)val=-32768;
                 *dest=val;
                 dest+=channels;
               }
@@ -2087,6 +2112,7 @@ long ov_read_filter(OggVorbis_File *vf,char *buffer,int length,
     vorbis_synthesis_read(&vf->vd,samples);
     hs=vorbis_synthesis_halfrate_p(vf->vi);
     vf->pcm_offset+=(samples<<hs);
+    printf("[TRACE] Hash: 88301871f593322d231a4326df4d4165, File: vorbis/lib/vorbisfile.c, Func: ov_read_filter, Line: 2090, Col: 8, Branch: if(bitstream)*bitstream=vf->current_link;\n");
     if(bitstream)*bitstream=vf->current_link;
     return(samples*bytespersample);
   }else{
