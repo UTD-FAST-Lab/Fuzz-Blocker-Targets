@@ -1,6 +1,6 @@
 #include <vorbis/instrumentation.h>
 
-static unsigned int guards[9999] = {1};  // Define the guards array
+unsigned int guards[9999] = {1};  // Define the guards array
 
 void initialize_guards() {
     for (int i = 0; i < 9999; i++)
