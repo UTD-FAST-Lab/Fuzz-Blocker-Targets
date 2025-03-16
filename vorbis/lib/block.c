@@ -80,7 +80,7 @@ int vorbis_block_init(vorbis_dsp_state *v, vorbis_block *vb){
   vb->vd=v;
   vb->localalloc=0;
   vb->localstore=NULL;
-  printf("[TRACE] Hash: 797ba1535d5b9de8a27819d691d26e47, File: vorbis/lib/block.c, Func: vorbis_block_init, Line: 83, Col: 6\n");
+  puts("[TRACE] Hash: 797ba1535d5b9de8a27819d691d26e47, File: vorbis/lib/block.c, Func: vorbis_block_init, Line: 83, Col: 6\n");
   if(v->analysisp){
     vorbis_block_internal *vbi=
       vb->internal=_ogg_calloc(1,sizeof(vorbis_block_internal));
@@ -102,10 +102,10 @@ int vorbis_block_init(vorbis_dsp_state *v, vorbis_block *vb){
 
 void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
   bytes=(bytes+(WORD_ALIGN-1)) & ~(WORD_ALIGN-1);
-  printf("[TRACE] Hash: c8193a45dd0e1c80f51d59f96b33b011, File: vorbis/lib/block.c, Func: _vorbis_block_alloc, Line: 104, Col: 6\n");
+  puts("[TRACE] Hash: c8193a45dd0e1c80f51d59f96b33b011, File: vorbis/lib/block.c, Func: _vorbis_block_alloc, Line: 104, Col: 6\n");
   if(bytes+vb->localtop>vb->localalloc){
     /* can't just _ogg_realloc... there are outstanding pointers */
-    printf("[TRACE] Hash: aa06fb102c7b2e9f945b4b46b78b249a, File: vorbis/lib/block.c, Func: _vorbis_block_alloc, Line: 106, Col: 8\n");
+    puts("[TRACE] Hash: aa06fb102c7b2e9f945b4b46b78b249a, File: vorbis/lib/block.c, Func: _vorbis_block_alloc, Line: 106, Col: 8\n");
     if(vb->localstore){
       struct alloc_chain *link=_ogg_malloc(sizeof(*link));
       vb->totaluse+=vb->localtop;
@@ -129,7 +129,7 @@ void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
 void _vorbis_block_ripcord(vorbis_block *vb){
   /* reap the chain */
   struct alloc_chain *reap=vb->reap;
-  printf("[TRACE] Hash: ca1a0cfbe1fc36bf152a5fd9b9d48fb0, File: vorbis/lib/block.c, Func: _vorbis_block_ripcord, Line: 129, Col: 9\n");
+  puts("[TRACE] Hash: ca1a0cfbe1fc36bf152a5fd9b9d48fb0, File: vorbis/lib/block.c, Func: _vorbis_block_ripcord, Line: 129, Col: 9\n");
   while(reap){
     struct alloc_chain *next=reap->next;
     _ogg_free(reap->ptr);
@@ -138,7 +138,7 @@ void _vorbis_block_ripcord(vorbis_block *vb){
     reap=next;
   }
   /* consolidate storage */
-  printf("[TRACE] Hash: 47ca2a63f6af2f0857f34d87aa32d30e, File: vorbis/lib/block.c, Func: _vorbis_block_ripcord, Line: 137, Col: 6\n");
+  puts("[TRACE] Hash: 47ca2a63f6af2f0857f34d87aa32d30e, File: vorbis/lib/block.c, Func: _vorbis_block_ripcord, Line: 137, Col: 6\n");
   if(vb->totaluse){
     vb->localstore=_ogg_realloc(vb->localstore,vb->totaluse+vb->localalloc);
     vb->localalloc+=vb->totaluse;
@@ -157,7 +157,7 @@ int vorbis_block_clear(vorbis_block *vb){
   _vorbis_block_ripcord(vb);
   if(vb->localstore)_ogg_free(vb->localstore);
 
-  printf("[TRACE] Hash: e58aa2bf857af8e40c9a0488dc645dc6, File: vorbis/lib/block.c, Func: vorbis_block_clear, Line: 155, Col: 6\n");
+  puts("[TRACE] Hash: e58aa2bf857af8e40c9a0488dc645dc6, File: vorbis/lib/block.c, Func: vorbis_block_clear, Line: 155, Col: 6\n");
   if(vbi){
     for(i=0;i<PACKETBLOBS;i++){
       oggpack_writeclear(vbi->packetblob[i]);
@@ -320,7 +320,7 @@ int vorbis_analysis_init(vorbis_dsp_state *v,vorbis_info *vi){
 
 void vorbis_dsp_clear(vorbis_dsp_state *v){
   int i;
-  printf("[TRACE] Hash: 7bb3a4daa170f0572ffdb1cd775a1813, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 317, Col: 6\n");
+  puts("[TRACE] Hash: 7bb3a4daa170f0572ffdb1cd775a1813, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 317, Col: 6\n");
   if(v){
     vorbis_info *vi=v->vi;
     codec_setup_info *ci=(vi?vi->codec_setup:NULL);
@@ -328,44 +328,44 @@ void vorbis_dsp_clear(vorbis_dsp_state *v){
 
     if(b){
 
-      printf("[TRACE] Hash: 8f0fc47d49ee33e08fd3c51eedff2699, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 324, Col: 10\n");
+      puts("[TRACE] Hash: 8f0fc47d49ee33e08fd3c51eedff2699, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 324, Col: 10\n");
       if(b->ve){
         _ve_envelope_clear(b->ve);
         _ogg_free(b->ve);
       }
 
-      printf("[TRACE] Hash: f24368d55c3ec62cdf69943d11f18dd9, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 329, Col: 10\n");
+      puts("[TRACE] Hash: f24368d55c3ec62cdf69943d11f18dd9, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 329, Col: 10\n");
       if(b->transform[0]){
         mdct_clear(b->transform[0][0]);
         _ogg_free(b->transform[0][0]);
         _ogg_free(b->transform[0]);
       }
-      printf("[TRACE] Hash: 9bdfaa3f00239596fadc4e3dea58391a, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 334, Col: 10\n");
+      puts("[TRACE] Hash: 9bdfaa3f00239596fadc4e3dea58391a, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 334, Col: 10\n");
       if(b->transform[1]){
         mdct_clear(b->transform[1][0]);
         _ogg_free(b->transform[1][0]);
         _ogg_free(b->transform[1]);
       }
 
-      printf("[TRACE] Hash: dc867d1da1985ffc7b40d41d7f219c21, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 340, Col: 10\n");
+      puts("[TRACE] Hash: dc867d1da1985ffc7b40d41d7f219c21, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 340, Col: 10\n");
       if(b->flr){
-        printf("[TRACE] Hash: fd620d7121837a187880f5282b3bbc39, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 341, Col: 12\n");
+        puts("[TRACE] Hash: fd620d7121837a187880f5282b3bbc39, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 341, Col: 12\n");
         if(ci)
           for(i=0;i<ci->floors;i++)
             _floor_P[ci->floor_type[i]]->
               free_look(b->flr[i]);
         _ogg_free(b->flr);
       }
-      printf("[TRACE] Hash: 3aa6c16cc6d3b9032897801c4709693a, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 347, Col: 10\n");
+      puts("[TRACE] Hash: 3aa6c16cc6d3b9032897801c4709693a, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 347, Col: 10\n");
       if(b->residue){
-        printf("[TRACE] Hash: a04d8f546a8c602ce3ebacc9e6cb9dd8, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 348, Col: 12\n");
+        puts("[TRACE] Hash: a04d8f546a8c602ce3ebacc9e6cb9dd8, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 348, Col: 12\n");
         if(ci)
           for(i=0;i<ci->residues;i++)
             _residue_P[ci->residue_type[i]]->
               free_look(b->residue[i]);
         _ogg_free(b->residue);
       }
-      printf("[TRACE] Hash: 84c54c3b14b51492fc89cad8b15cd748, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 354, Col: 10\n");
+      puts("[TRACE] Hash: 84c54c3b14b51492fc89cad8b15cd748, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 354, Col: 10\n");
       if(b->psy){
         if(ci)
           for(i=0;i<ci->psys;i++)
@@ -373,7 +373,7 @@ void vorbis_dsp_clear(vorbis_dsp_state *v){
         _ogg_free(b->psy);
       }
 
-      printf("[TRACE] Hash: 680a75636d4061b8672fc057bee44c0c, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 361, Col: 10\n");
+      puts("[TRACE] Hash: 680a75636d4061b8672fc057bee44c0c, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 361, Col: 10\n");
       if(b->psy_g_look)_vp_global_free(b->psy_g_look);
       vorbis_bitrate_clear(&b->bms);
 
@@ -383,23 +383,23 @@ void vorbis_dsp_clear(vorbis_dsp_state *v){
     }
 
     if(v->pcm){
-      printf("[TRACE] Hash: cf0ad69bb69b637969f2c7e3d4313bb7, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 370, Col: 10\n");
+      puts("[TRACE] Hash: cf0ad69bb69b637969f2c7e3d4313bb7, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 370, Col: 10\n");
       if(vi)
         for(i=0;i<vi->channels;i++)
-          printf("[TRACE] Hash: 85c47b3539a24f263fe8fed53ee544bd, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 372, Col: 14\n");
+          puts("[TRACE] Hash: 85c47b3539a24f263fe8fed53ee544bd, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 372, Col: 14\n");
           if(v->pcm[i])_ogg_free(v->pcm[i]);
       _ogg_free(v->pcm);
-      printf("[TRACE] Hash: 888a67e1a1e607b7f64a5c1b5d509f44, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 374, Col: 10\n");
+      puts("[TRACE] Hash: 888a67e1a1e607b7f64a5c1b5d509f44, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 374, Col: 10\n");
       if(v->pcmret)_ogg_free(v->pcmret);
     }
 
     if(b){
       /* free header, header1, header2 */
-      printf("[TRACE] Hash: a5ca1ec354a031b77719411306350520, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 379, Col: 10\n");
+      puts("[TRACE] Hash: a5ca1ec354a031b77719411306350520, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 379, Col: 10\n");
       if(b->header)_ogg_free(b->header);
-      printf("[TRACE] Hash: 48d87da03971b79ae15e339289756164, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 380, Col: 10\n");
+      puts("[TRACE] Hash: 48d87da03971b79ae15e339289756164, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 380, Col: 10\n");
       if(b->header1)_ogg_free(b->header1);
-      printf("[TRACE] Hash: 98d8b345527b78d7380bbd26d0fcf78a, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 381, Col: 10\n");
+      puts("[TRACE] Hash: 98d8b345527b78d7380bbd26d0fcf78a, File: vorbis/lib/block.c, Func: vorbis_dsp_clear, Line: 381, Col: 10\n");
       if(b->header2)_ogg_free(b->header2);
       _ogg_free(b);
     }
@@ -718,12 +718,12 @@ int vorbis_synthesis_restart(vorbis_dsp_state *v){
   codec_setup_info *ci;
   int hs;
 
-  printf("[TRACE] Hash: bb32859eae7a057a50d555679511992e, File: vorbis/lib/block.c, Func: vorbis_synthesis_restart, Line: 699, Col: 6\n");
+  puts("[TRACE] Hash: bb32859eae7a057a50d555679511992e, File: vorbis/lib/block.c, Func: vorbis_synthesis_restart, Line: 699, Col: 6\n");
   if(!v->backend_state)return -1;
-  printf("[TRACE] Hash: bcae72839a6023c33f19b5d0ef42731e, File: vorbis/lib/block.c, Func: vorbis_synthesis_restart, Line: 700, Col: 6\n");
+  puts("[TRACE] Hash: bcae72839a6023c33f19b5d0ef42731e, File: vorbis/lib/block.c, Func: vorbis_synthesis_restart, Line: 700, Col: 6\n");
   if(!vi)return -1;
   ci=vi->codec_setup;
-  printf("[TRACE] Hash: aaee5c0378e0b23bc1e3bbe96184e632, File: vorbis/lib/block.c, Func: vorbis_synthesis_restart, Line: 702, Col: 6\n");
+  puts("[TRACE] Hash: aaee5c0378e0b23bc1e3bbe96184e632, File: vorbis/lib/block.c, Func: vorbis_synthesis_restart, Line: 702, Col: 6\n");
   if(!ci)return -1;
   hs=ci->halfrate_flag;
 
@@ -740,7 +740,7 @@ int vorbis_synthesis_restart(vorbis_dsp_state *v){
 }
 
 int vorbis_synthesis_init(vorbis_dsp_state *v,vorbis_info *vi){
-  printf("[TRACE] Hash: 32a5e8c5449ce1ef09c9e050365f6723, File: vorbis/lib/block.c, Func: vorbis_synthesis_init, Line: 718, Col: 6\n");
+  puts("[TRACE] Hash: 32a5e8c5449ce1ef09c9e050365f6723, File: vorbis/lib/block.c, Func: vorbis_synthesis_init, Line: 718, Col: 6\n");
   if(_vds_shared_init(v,vi,0)){
     vorbis_dsp_clear(v);
     return 1;
@@ -760,16 +760,16 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
   int hs=ci->halfrate_flag;
   int i,j;
 
-  printf("[TRACE] Hash: e282e514a8201eb24a1e096d94abc0e5, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 737, Col: 6\n");
+  puts("[TRACE] Hash: e282e514a8201eb24a1e096d94abc0e5, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 737, Col: 6\n");
   if(!vb)return(OV_EINVAL);
-  printf("[TRACE] Hash: 2f5697182f1655644021254e991d0fab, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 738, Col: 6\n");
+  puts("[TRACE] Hash: 2f5697182f1655644021254e991d0fab, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 738, Col: 6\n");
   if(v->pcm_current>v->pcm_returned  && v->pcm_returned!=-1)return(OV_EINVAL);
 
   v->lW=v->W;
   v->W=vb->W;
   v->nW=-1;
 
-  printf("[TRACE] Hash: b98ef71bf6e59336fdf56a62fb72f04d, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 744, Col: 6\n");
+  puts("[TRACE] Hash: b98ef71bf6e59336fdf56a62fb72f04d, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 744, Col: 6\n");
   if((v->sequence==-1)||
      (v->sequence+1 != vb->sequence)){
     v->granulepos=-1; /* out of sequence; lose count */
@@ -778,7 +778,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 
   v->sequence=vb->sequence;
 
-  printf("[TRACE] Hash: 99ab9b88dc9a232873428a39081008af, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 752, Col: 6\n");
+  puts("[TRACE] Hash: 99ab9b88dc9a232873428a39081008af, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 752, Col: 6\n");
   if(vb->pcm){  /* no pcm to process if vorbis_synthesis_trackonly
                    was called on block */
     int n=ci->blocksizes[v->W]>>(hs+1);
@@ -807,15 +807,15 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 
     for(j=0;j<vi->channels;j++){
       /* the overlap/add section */
-      printf("[TRACE] Hash: 85ac65277cd9e266a75ba2f84f2fd465, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 780, Col: 10\n");
+      puts("[TRACE] Hash: 85ac65277cd9e266a75ba2f84f2fd465, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 780, Col: 10\n");
       if(v->lW){
-        printf("[TRACE] Hash: 437266e1851bb4635ddf4835b0e45186, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 781, Col: 12\n");
+        puts("[TRACE] Hash: 437266e1851bb4635ddf4835b0e45186, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 781, Col: 12\n");
         if(v->W){
           /* large/large */
           const float *w=_vorbis_window_get(b->window[1]-hs);
           float *pcm=v->pcm[j]+prevCenter;
           float *p=vb->pcm[j];
-          printf("[TRACE] Hash: 0935e5644fbe914c3e73069ad9cab09c, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 786, Col: 19\n");
+          puts("[TRACE] Hash: 0935e5644fbe914c3e73069ad9cab09c, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 786, Col: 19\n");
           for(i=0;i<n1;i++)
             pcm[i]=pcm[i]*w[n1-i-1] + p[i]*w[i];
         }else{
@@ -823,21 +823,21 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
           const float *w=_vorbis_window_get(b->window[0]-hs);
           float *pcm=v->pcm[j]+prevCenter+n1/2-n0/2;
           float *p=vb->pcm[j];
-          printf("[TRACE] Hash: 92b42b1026d019b3fc956e383ed42d82, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 793, Col: 19\n");
+          puts("[TRACE] Hash: 92b42b1026d019b3fc956e383ed42d82, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 793, Col: 19\n");
           for(i=0;i<n0;i++)
             pcm[i]=pcm[i]*w[n0-i-1] +p[i]*w[i];
         }
       }else{
-        printf("[TRACE] Hash: 271d943860ffc010858413bb617db287, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 797, Col: 12\n");
+        puts("[TRACE] Hash: 271d943860ffc010858413bb617db287, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 797, Col: 12\n");
         if(v->W){
           /* small/large */
           const float *w=_vorbis_window_get(b->window[0]-hs);
           float *pcm=v->pcm[j]+prevCenter;
           float *p=vb->pcm[j]+n1/2-n0/2;
-          printf("[TRACE] Hash: 15ba34bc20b5f4b76a6ad43f4c2cf25e, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 802, Col: 19\n");
+          puts("[TRACE] Hash: 15ba34bc20b5f4b76a6ad43f4c2cf25e, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 802, Col: 19\n");
           for(i=0;i<n0;i++)
             pcm[i]=pcm[i]*w[n0-i-1] +p[i]*w[i];
-          printf("[TRACE] Hash: 1d55b631c2c24fad0f42b695ad53ab38, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 804, Col: 16\n");
+          puts("[TRACE] Hash: 1d55b631c2c24fad0f42b695ad53ab38, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 804, Col: 16\n");
           for(;i<n1/2+n0/2;i++)
             pcm[i]=p[i];
         }else{
@@ -845,7 +845,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
           const float *w=_vorbis_window_get(b->window[0]-hs);
           float *pcm=v->pcm[j]+prevCenter;
           float *p=vb->pcm[j];
-          printf("[TRACE] Hash: 1434267fd59bfaed7f1293597faa1704, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 811, Col: 19\n");
+          puts("[TRACE] Hash: 1434267fd59bfaed7f1293597faa1704, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 811, Col: 19\n");
           for(i=0;i<n0;i++)
             pcm[i]=pcm[i]*w[n0-i-1] +p[i]*w[i];
         }
@@ -855,7 +855,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
       {
         float *pcm=v->pcm[j]+thisCenter;
         float *p=vb->pcm[j]+n;
-        printf("[TRACE] Hash: 7ee2959b71e3c7046b0a7594482a7858, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 820, Col: 17\n");
+        puts("[TRACE] Hash: 7ee2959b71e3c7046b0a7594482a7858, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 820, Col: 17\n");
         for(i=0;i<n;i++)
           pcm[i]=p[i];
       }
@@ -870,7 +870,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
        pcm_returned==-1 flag otherwise we're sensitive to first block
        being short or long */
 
-    printf("[TRACE] Hash: fa71a5362b833cd8398d416de0d0f978, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 834, Col: 8\n");
+    puts("[TRACE] Hash: fa71a5362b833cd8398d416de0d0f978, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 834, Col: 8\n");
     if(v->pcm_returned==-1){
       v->pcm_returned=thisCenter;
       v->pcm_current=thisCenter;
@@ -900,15 +900,15 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
     b->sample_count+=ci->blocksizes[v->lW]/4+ci->blocksizes[v->W]/4;
   }
 
-  printf("[TRACE] Hash: ddca7f9c589d838a40648f4ade90668a, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 863, Col: 6\n");
+  puts("[TRACE] Hash: ddca7f9c589d838a40648f4ade90668a, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 863, Col: 6\n");
   if(v->granulepos==-1){
-    printf("[TRACE] Hash: 500f3c3857e454e058629841cb8e934f, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 864, Col: 8\n");
+    puts("[TRACE] Hash: 500f3c3857e454e058629841cb8e934f, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 864, Col: 8\n");
     if(vb->granulepos!=-1){ /* only set if we have a position to set to */
 
       v->granulepos=vb->granulepos;
 
       /* is this a short page? */
-      printf("[TRACE] Hash: 826aa4b8d5f407b388a3eca0a5f4e97b, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 869, Col: 10\n");
+      puts("[TRACE] Hash: 826aa4b8d5f407b388a3eca0a5f4e97b, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 869, Col: 10\n");
       if(b->sample_count>v->granulepos){
         /* corner case; if this is both the first and last audio page,
            then spec says the end is cut, not beginning */
@@ -947,8 +947,8 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
     }
   }else{
     v->granulepos+=ci->blocksizes[v->lW]/4+ci->blocksizes[v->W]/4;
-    printf("[TRACE] Hash: a9f2e9342315aec913e636bfba7bc168, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 907, Col: 30\n");
-    printf("[TRACE] Hash: 92c0ce10389126282367d40150d088c5, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 907, Col: 8\n");
+    puts("[TRACE] Hash: a9f2e9342315aec913e636bfba7bc168, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 907, Col: 30\n");
+    puts("[TRACE] Hash: 92c0ce10389126282367d40150d088c5, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 907, Col: 8\n");
     if(vb->granulepos!=-1 && v->granulepos!=vb->granulepos){
 
       if(v->granulepos>vb->granulepos){
@@ -982,7 +982,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 
   /* Update, cleanup */
 
-  printf("[TRACE] Hash: 6d19e17c34951a5bef3e156416348d08, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 940, Col: 6\n");
+  puts("[TRACE] Hash: 6d19e17c34951a5bef3e156416348d08, File: vorbis/lib/block.c, Func: vorbis_synthesis_blockin, Line: 940, Col: 6\n");
   if(vb->eofflag)v->eofflag=1;
   return(0);
 
@@ -992,11 +992,11 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
   vorbis_info *vi=v->vi;
 
-  printf("[TRACE] Hash: 2caeb404b663becad1c8c40d19bcd248, File: vorbis/lib/block.c, Func: vorbis_synthesis_pcmout, Line: 949, Col: 6\n");
+  puts("[TRACE] Hash: 2caeb404b663becad1c8c40d19bcd248, File: vorbis/lib/block.c, Func: vorbis_synthesis_pcmout, Line: 949, Col: 6\n");
   if(v->pcm_returned>-1 && v->pcm_returned<v->pcm_current){
     if(pcm){
       int i;
-      printf("[TRACE] Hash: f4966f4204b3c04310558a8021dd894c, File: vorbis/lib/block.c, Func: vorbis_synthesis_pcmout, Line: 952, Col: 15\n");
+      puts("[TRACE] Hash: f4966f4204b3c04310558a8021dd894c, File: vorbis/lib/block.c, Func: vorbis_synthesis_pcmout, Line: 952, Col: 15\n");
       for(i=0;i<vi->channels;i++)
         v->pcmret[i]=v->pcm[i]+v->pcm_returned;
       *pcm=v->pcmret;
@@ -1007,8 +1007,8 @@ int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
 }
 
 int vorbis_synthesis_read(vorbis_dsp_state *v,int n){
-  printf("[TRACE] Hash: 5995267a944eeee8950fa08c37fd696d, File: vorbis/lib/block.c, Func: vorbis_synthesis_read, Line: 962, Col: 11\n");
-  printf("[TRACE] Hash: cc23ef97b940311eac1c4dd735ce4924, File: vorbis/lib/block.c, Func: vorbis_synthesis_read, Line: 962, Col: 6\n");
+  puts("[TRACE] Hash: 5995267a944eeee8950fa08c37fd696d, File: vorbis/lib/block.c, Func: vorbis_synthesis_read, Line: 962, Col: 11\n");
+  puts("[TRACE] Hash: cc23ef97b940311eac1c4dd735ce4924, File: vorbis/lib/block.c, Func: vorbis_synthesis_read, Line: 962, Col: 6\n");
   if(n && v->pcm_returned+n>v->pcm_current)return(OV_EINVAL);
   v->pcm_returned+=n;
   return(0);

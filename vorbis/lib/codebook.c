@@ -151,16 +151,16 @@ static_codebook *vorbis_staticbook_unpack(oggpack_buffer *opb){
   s->allocedp=1;
 
   /* make sure alignment is correct */
-  printf("[TRACE] Hash: 079fa8343142b03c416b61bb0117143d, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 154, Col: 6\n");
+  puts("[TRACE] Hash: 079fa8343142b03c416b61bb0117143d, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 154, Col: 6\n");
   if(oggpack_read(opb,24)!=0x564342)goto _eofout;
 
   /* first the basic parameters */
   s->dim=oggpack_read(opb,16);
   s->entries=oggpack_read(opb,24);
-  printf("[TRACE] Hash: c1bba001a064cf5e4d46f9b6fdb0a2ac, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 159, Col: 6\n");
+  puts("[TRACE] Hash: c1bba001a064cf5e4d46f9b6fdb0a2ac, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 159, Col: 6\n");
   if(s->entries==-1)goto _eofout;
 
-  printf("[TRACE] Hash: a691432b470aa6f1066be3174d93116c, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 161, Col: 6\n");
+  puts("[TRACE] Hash: a691432b470aa6f1066be3174d93116c, File: vorbis/lib/codebook.c, Func: vorbis_staticbook_unpack, Line: 161, Col: 6\n");
   if(ov_ilog(s->dim)+ov_ilog(s->entries)>24)goto _eofout;
 
   /* codeword ordering.... length ordered or unordered? */
@@ -364,10 +364,10 @@ STIN long decode_packed_entry_number(codebook *book, oggpack_buffer *b){
 
 /* returns the [original, not compacted] entry number or -1 on eof *********/
 long vorbis_book_decode(codebook *book, oggpack_buffer *b){
-  printf("[TRACE] Hash: da6e1056ec74214b56299c1c2cd13c72, File: vorbis/lib/codebook.c, Func: vorbis_book_decode, Line: 364, Col: 6\n");
+  puts("[TRACE] Hash: da6e1056ec74214b56299c1c2cd13c72, File: vorbis/lib/codebook.c, Func: vorbis_book_decode, Line: 364, Col: 6\n");
   if(book->used_entries>0){
     long packed_entry=decode_packed_entry_number(book,b);
-    printf("[TRACE] Hash: 340089db0ec6222e8d7d11a1a0f3fdea, File: vorbis/lib/codebook.c, Func: vorbis_book_decode, Line: 366, Col: 8\n");
+    puts("[TRACE] Hash: 340089db0ec6222e8d7d11a1a0f3fdea, File: vorbis/lib/codebook.c, Func: vorbis_book_decode, Line: 366, Col: 8\n");
     if(packed_entry>=0)
       return(book->dec_index[packed_entry]);
   }
@@ -379,7 +379,7 @@ long vorbis_book_decode(codebook *book, oggpack_buffer *b){
 /* returns 0 on OK or -1 on eof *************************************/
 /* decode vector / dim granularity gaurding is done in the upper layer */
 long vorbis_book_decodevs_add(codebook *book,float *a,oggpack_buffer *b,int n){
-  printf("[TRACE] Hash: 9851cd1a8311d14f3cbdc25741ca9fc9, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevs_add, Line: 377, Col: 6\n");
+  puts("[TRACE] Hash: 9851cd1a8311d14f3cbdc25741ca9fc9, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevs_add, Line: 377, Col: 6\n");
   if(book->used_entries>0){
     int step=n/book->dim;
     long *entry = alloca(sizeof(*entry)*step);
@@ -388,12 +388,12 @@ long vorbis_book_decodevs_add(codebook *book,float *a,oggpack_buffer *b,int n){
 
     for (i = 0; i < step; i++) {
       entry[i]=decode_packed_entry_number(book,b);
-      printf("[TRACE] Hash: bc925a63f30bbf5e50ff202a768703b4, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevs_add, Line: 385, Col: 10\n");
+      puts("[TRACE] Hash: bc925a63f30bbf5e50ff202a768703b4, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevs_add, Line: 385, Col: 10\n");
       if(entry[i]==-1)return(-1);
       t[i] = book->valuelist+entry[i]*book->dim;
     }
     for(i=0,o=0;i<book->dim;i++,o+=step)
-      printf("[TRACE] Hash: 79eb2ba0b408bdca4a12d812ef949efd, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevs_add, Line: 389, Col: 16\n");
+      puts("[TRACE] Hash: 79eb2ba0b408bdca4a12d812ef949efd, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevs_add, Line: 389, Col: 16\n");
       for (j=0;o+j<n && j<step;j++)
         a[o+j]+=t[j][i];
   }
@@ -402,18 +402,18 @@ long vorbis_book_decodevs_add(codebook *book,float *a,oggpack_buffer *b,int n){
 
 /* decode vector / dim granularity gaurding is done in the upper layer */
 long vorbis_book_decodev_add(codebook *book,float *a,oggpack_buffer *b,int n){
-  printf("[TRACE] Hash: b92bb3cffe2382bc17b919d7efa04c27, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 397, Col: 6\n");
+  puts("[TRACE] Hash: b92bb3cffe2382bc17b919d7efa04c27, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 397, Col: 6\n");
   if(book->used_entries>0){
     int i,j,entry;
     float *t;
 
-    printf("[TRACE] Hash: b7ba017cbac2f87433d2a40a3d2a75e0, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 401, Col: 13\n");
+    puts("[TRACE] Hash: b7ba017cbac2f87433d2a40a3d2a75e0, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 401, Col: 13\n");
     for(i=0;i<n;){
       entry = decode_packed_entry_number(book,b);
-      printf("[TRACE] Hash: ccbfc26c78ebe593e7e9aed834af8512, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 403, Col: 10\n");
+      puts("[TRACE] Hash: ccbfc26c78ebe593e7e9aed834af8512, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 403, Col: 10\n");
       if(entry==-1)return(-1);
       t     = book->valuelist+entry*book->dim;
-      printf("[TRACE] Hash: f59be3c769601439e017b27971db7039, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 405, Col: 15\n");
+      puts("[TRACE] Hash: f59be3c769601439e017b27971db7039, File: vorbis/lib/codebook.c, Func: vorbis_book_decodev_add, Line: 405, Col: 15\n");
       for(j=0;i<n && j<book->dim;)
         a[i++]+=t[j++];
     }
@@ -452,17 +452,17 @@ long vorbis_book_decodevv_add(codebook *book,float **a,long offset,int ch,
 
   long i,j,entry;
   int chptr=0;
-  printf("[TRACE] Hash: 2f6e3cb2efc789ceeb38bebe28ff4fe5, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 443, Col: 6\n");
+  puts("[TRACE] Hash: 2f6e3cb2efc789ceeb38bebe28ff4fe5, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 443, Col: 6\n");
   if(book->used_entries>0){
     int m=(offset+n)/ch;
-    printf("[TRACE] Hash: 61a31e1c3a590f3f3a37f663ff17d974, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 445, Col: 21\n");
+    puts("[TRACE] Hash: 61a31e1c3a590f3f3a37f663ff17d974, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 445, Col: 21\n");
     for(i=offset/ch;i<m;){
       entry = decode_packed_entry_number(book,b);
-      printf("[TRACE] Hash: 2a2fda591d95171244635f2b18b70a97, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 447, Col: 10\n");
+      puts("[TRACE] Hash: 2a2fda591d95171244635f2b18b70a97, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 447, Col: 10\n");
       if(entry==-1)return(-1);
       {
         const float *t = book->valuelist+entry*book->dim;
-        printf("[TRACE] Hash: 64e488d669e0862132598b0636270b49, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 450, Col: 18\n");
+        puts("[TRACE] Hash: 64e488d669e0862132598b0636270b49, File: vorbis/lib/codebook.c, Func: vorbis_book_decodevv_add, Line: 450, Col: 18\n");
         for (j=0;i<m && j<book->dim;j++){
           a[chptr++][i]+=t[j];
           if(chptr==ch){

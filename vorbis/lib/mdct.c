@@ -61,14 +61,14 @@ void mdct_init(mdct_lookup *lookup,int n){
 
 /* trig lookups... */
 
-  printf("[TRACE] Hash: a73a5d829dc97da7954de028ea8d8e63, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 64, Col: 11\n");
+  puts("[TRACE] Hash: a73a5d829dc97da7954de028ea8d8e63, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 64, Col: 11\n");
   for(i=0;i<n/4;i++){
     T[i*2]=FLOAT_CONV(cos((M_PI/n)*(4*i)));
     T[i*2+1]=FLOAT_CONV(-sin((M_PI/n)*(4*i)));
     T[n2+i*2]=FLOAT_CONV(cos((M_PI/(2*n))*(2*i+1)));
     T[n2+i*2+1]=FLOAT_CONV(sin((M_PI/(2*n))*(2*i+1)));
   }
-  printf("[TRACE] Hash: 750eae7272418df7f58ee72a15151fb4, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 70, Col: 11\n");
+  puts("[TRACE] Hash: 750eae7272418df7f58ee72a15151fb4, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 70, Col: 11\n");
   for(i=0;i<n/8;i++){
     T[n+i*2]=FLOAT_CONV(cos((M_PI/n)*(4*i+2))*.5);
     T[n+i*2+1]=FLOAT_CONV(-sin((M_PI/n)*(4*i+2))*.5);
@@ -79,10 +79,10 @@ void mdct_init(mdct_lookup *lookup,int n){
   {
     int mask=(1<<(log2n-1))-1,i,j;
     int msb=1<<(log2n-2);
-    printf("[TRACE] Hash: 868232f3b62e4ab0e774ad9bedca415d, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 80, Col: 13\n");
+    puts("[TRACE] Hash: 868232f3b62e4ab0e774ad9bedca415d, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 80, Col: 13\n");
     for(i=0;i<n/8;i++){
       int acc=0;
-      printf("[TRACE] Hash: 04c210c883669b8b8fef1b528fff0806, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 82, Col: 15\n");
+      puts("[TRACE] Hash: 04c210c883669b8b8fef1b528fff0806, File: vorbis/lib/mdct.c, Func: mdct_init, Line: 82, Col: 15\n");
       for(j=0;msb>>j;j++)
         if((msb>>j)&i)acc|=1<<j;
       bitrev[i*2]=((~acc)&mask)-1;
@@ -340,11 +340,11 @@ STIN void mdct_butterflies(mdct_lookup *init,
 }
 
 void mdct_clear(mdct_lookup *l){
-  printf("[TRACE] Hash: 35ee2fd147564160a597624d60b15261, File: vorbis/lib/mdct.c, Func: mdct_clear, Line: 339, Col: 6\n");
+  puts("[TRACE] Hash: 35ee2fd147564160a597624d60b15261, File: vorbis/lib/mdct.c, Func: mdct_clear, Line: 339, Col: 6\n");
   if(l){
-    printf("[TRACE] Hash: f511afefc2b4a6c1406d8a50d8c41b6f, File: vorbis/lib/mdct.c, Func: mdct_clear, Line: 340, Col: 8\n");
+    puts("[TRACE] Hash: f511afefc2b4a6c1406d8a50d8c41b6f, File: vorbis/lib/mdct.c, Func: mdct_clear, Line: 340, Col: 8\n");
     if(l->trig)_ogg_free(l->trig);
-    printf("[TRACE] Hash: 08a7f5972927784cee6e5701a9967a96, File: vorbis/lib/mdct.c, Func: mdct_clear, Line: 341, Col: 8\n");
+    puts("[TRACE] Hash: 08a7f5972927784cee6e5701a9967a96, File: vorbis/lib/mdct.c, Func: mdct_clear, Line: 341, Col: 8\n");
     if(l->bitrev)_ogg_free(l->bitrev);
     memset(l,0,sizeof(*l));
   }
