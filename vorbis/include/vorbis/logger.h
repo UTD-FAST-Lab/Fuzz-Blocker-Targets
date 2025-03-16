@@ -1,19 +1,15 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef LOG_H
+#define LOG_H
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <pthread.h>
 
-// Log Levels
-typedef enum { LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_DEBUG } LogLevel;
-
-extern FILE *log_file;
-extern pthread_mutex_t log_mutex;
-
+// Initialize log file
 void log_init(const char *filename);
-void log_message(LogLevel level, const char *format, ...);
+
+// Write a message to the log
+void log_message(const char *message);
+
+// Close log file
 void log_close();
 
-#endif  // LOGGER_H
+#endif // LOG_H

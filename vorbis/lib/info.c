@@ -130,12 +130,12 @@ int vorbis_comment_query_count(vorbis_comment *vc, const char *tag){
 }
 
 void vorbis_comment_clear(vorbis_comment *vc){
-  log_message(LOG_INFO, "[TRACE] Hash: 3ec83d9afdee2f55c75ddadcf1d6ec05, File: vorbis/lib/info.c, Func: vorbis_comment_clear, Line: 132, Col: 6\n");
+  log_message("[TRACE] Hash: 3ec83d9afdee2f55c75ddadcf1d6ec05, File: vorbis/lib/info.c, Func: vorbis_comment_clear, Line: 132, Col: 6\n");
   if(vc){
     long i;
     if(vc->user_comments){
       for(i=0;i<vc->comments;i++)
-        log_message(LOG_INFO, "[TRACE] Hash: 6978805fdda0ee710dbd5da058fa7956, File: vorbis/lib/info.c, Func: vorbis_comment_clear, Line: 136, Col: 12\n");
+        log_message("[TRACE] Hash: 6978805fdda0ee710dbd5da058fa7956, File: vorbis/lib/info.c, Func: vorbis_comment_clear, Line: 136, Col: 12\n");
         if(vc->user_comments[i])_ogg_free(vc->user_comments[i]);
       _ogg_free(vc->user_comments);
     }
@@ -165,45 +165,45 @@ void vorbis_info_clear(vorbis_info *vi){
   if(ci){
 
     for(i=0;i<ci->modes;i++)
-      log_message(LOG_INFO, "[TRACE] Hash: 6b26d7532b1d9dd8ab9dfa345077923e, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 165, Col: 10\n");
+      log_message("[TRACE] Hash: 6b26d7532b1d9dd8ab9dfa345077923e, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 165, Col: 10\n");
       if(ci->mode_param[i])_ogg_free(ci->mode_param[i]);
 
     for(i=0;i<ci->maps;i++) /* unpack does the range checking */
-      log_message(LOG_INFO, "[TRACE] Hash: 71fa6aca6f87e453911d63036446b807, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 168, Col: 10\n");
+      log_message("[TRACE] Hash: 71fa6aca6f87e453911d63036446b807, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 168, Col: 10\n");
       if(ci->map_param[i]) /* this may be cleaning up an aborted
                               unpack, in which case the below type
                               cannot be trusted */
         _mapping_P[ci->map_type[i]]->free_info(ci->map_param[i]);
 
     for(i=0;i<ci->floors;i++) /* unpack does the range checking */
-      log_message(LOG_INFO, "[TRACE] Hash: a8e2b2dd5f452b121b13ff44ab8df743, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 174, Col: 10\n");
+      log_message("[TRACE] Hash: a8e2b2dd5f452b121b13ff44ab8df743, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 174, Col: 10\n");
       if(ci->floor_param[i]) /* this may be cleaning up an aborted
                                 unpack, in which case the below type
                                 cannot be trusted */
         _floor_P[ci->floor_type[i]]->free_info(ci->floor_param[i]);
 
     for(i=0;i<ci->residues;i++) /* unpack does the range checking */
-      log_message(LOG_INFO, "[TRACE] Hash: a59489df0b22ff6f63094169fe839e07, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 180, Col: 10\n");
+      log_message("[TRACE] Hash: a59489df0b22ff6f63094169fe839e07, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 180, Col: 10\n");
       if(ci->residue_param[i]) /* this may be cleaning up an aborted
                                   unpack, in which case the below type
                                   cannot be trusted */
         _residue_P[ci->residue_type[i]]->free_info(ci->residue_param[i]);
 
-    log_message(LOG_INFO, "[TRACE] Hash: 3f7a4986a80841d2c8b5f2c61f49cf28, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 185, Col: 13\n");
+    log_message("[TRACE] Hash: 3f7a4986a80841d2c8b5f2c61f49cf28, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 185, Col: 13\n");
     for(i=0;i<ci->books;i++){
-      log_message(LOG_INFO, "[TRACE] Hash: 914fc6754b1d65ce5a365d7723ec8bca, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 186, Col: 10\n");
+      log_message("[TRACE] Hash: 914fc6754b1d65ce5a365d7723ec8bca, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 186, Col: 10\n");
       if(ci->book_param[i]){
         /* knows if the book was not alloced */
         vorbis_staticbook_destroy(ci->book_param[i]);
       }
-      log_message(LOG_INFO, "[TRACE] Hash: 1556e6fce54d6843151d29ef344fe280, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 190, Col: 10\n");
+      log_message("[TRACE] Hash: 1556e6fce54d6843151d29ef344fe280, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 190, Col: 10\n");
       if(ci->fullbooks)
         vorbis_book_clear(ci->fullbooks+i);
     }
     if(ci->fullbooks)
         _ogg_free(ci->fullbooks);
 
-    log_message(LOG_INFO, "[TRACE] Hash: 604fcdd3523fa443114002c5fe6d2e94, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 196, Col: 13\n");
+    log_message("[TRACE] Hash: 604fcdd3523fa443114002c5fe6d2e94, File: vorbis/lib/info.c, Func: vorbis_info_clear, Line: 196, Col: 13\n");
     for(i=0;i<ci->psys;i++)
       _vi_psy_free(ci->psy_param[i]);
 
@@ -364,15 +364,15 @@ int vorbis_synthesis_idheader(ogg_packet *op){
   oggpack_buffer opb;
   char buffer[6];
 
-  log_message(LOG_INFO, "[TRACE] Hash: a400c55ab6df3a625fd919f7fd889c43, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 356, Col: 6\n");
+  log_message("[TRACE] Hash: a400c55ab6df3a625fd919f7fd889c43, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 356, Col: 6\n");
   if(op){
     oggpack_readinit(&opb,op->packet,op->bytes);
 
-    log_message(LOG_INFO, "[TRACE] Hash: 83d3ce7c56df7c6e1cd7537e3ff0bb52, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 359, Col: 8\n");
+    log_message("[TRACE] Hash: 83d3ce7c56df7c6e1cd7537e3ff0bb52, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 359, Col: 8\n");
     if(!op->b_o_s)
       return(0); /* Not the initial packet */
 
-    log_message(LOG_INFO, "[TRACE] Hash: 44d14519d5f2c23c05b123048bb0a9c6, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 362, Col: 8\n");
+    log_message("[TRACE] Hash: 44d14519d5f2c23c05b123048bb0a9c6, File: vorbis/lib/info.c, Func: vorbis_synthesis_idheader, Line: 362, Col: 8\n");
     if(oggpack_read(&opb,8) != 1)
       return 0; /* not an ID header */
 
@@ -395,7 +395,7 @@ int vorbis_synthesis_idheader(ogg_packet *op){
 int vorbis_synthesis_headerin(vorbis_info *vi,vorbis_comment *vc,ogg_packet *op){
   oggpack_buffer opb;
 
-  log_message(LOG_INFO, "[TRACE] Hash: 4c8803862d65402f739c003f7843f915, File: vorbis/lib/info.c, Func: vorbis_synthesis_headerin, Line: 384, Col: 6\n");
+  log_message("[TRACE] Hash: 4c8803862d65402f739c003f7843f915, File: vorbis/lib/info.c, Func: vorbis_synthesis_headerin, Line: 384, Col: 6\n");
   if(op){
     oggpack_readinit(&opb,op->packet,op->bytes);
 
@@ -406,7 +406,7 @@ int vorbis_synthesis_headerin(vorbis_info *vi,vorbis_comment *vc,ogg_packet *op)
       int packtype=oggpack_read(&opb,8);
       memset(buffer,0,6);
       _v_readstring(&opb,buffer,6);
-      log_message(LOG_INFO, "[TRACE] Hash: be979ff82ac89f5d90b192caf77d7152, File: vorbis/lib/info.c, Func: vorbis_synthesis_headerin, Line: 394, Col: 10\n");
+      log_message("[TRACE] Hash: be979ff82ac89f5d90b192caf77d7152, File: vorbis/lib/info.c, Func: vorbis_synthesis_headerin, Line: 394, Col: 10\n");
       if(memcmp(buffer,"vorbis",6)){
         /* not a vorbis header */
         return(OV_ENOTVORBIS);
