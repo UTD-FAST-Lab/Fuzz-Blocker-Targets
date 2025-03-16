@@ -29,7 +29,7 @@
 #include "codebook.h"
 #include "misc.h"
 #include "os.h"
-#include <vorbis/logger.h>
+#include <ogg/logger.h>
 
 #if defined(TRAIN_RES) || defined (TRAIN_RESAUX)
 #include <stdio.h>

@@ -28,7 +28,7 @@
 #include "psy.h"
 #include "misc.h"
 #include "os.h"
-#include <vorbis/logger.h>
+#include <ogg/logger.h>
 
 #define GENERAL_VENDOR_STRING "Xiph.Org libVorbis 1.3.7"
 #define ENCODE_VENDOR_STRING "Xiph.Org libVorbis I 20200704 (Reducing Environment)"

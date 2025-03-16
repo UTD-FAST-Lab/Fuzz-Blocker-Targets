@@ -23,7 +23,7 @@
 #include "scales.h"
 #include "misc.h"
 #include "os.h"
-#include <vorbis/logger.h>
+#include <ogg/logger.h>
 
 /* packs the given codebook into the bitstream **************************/
 

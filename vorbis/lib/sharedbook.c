@@ -24,7 +24,7 @@
 #include "vorbis/codec.h"
 #include "codebook.h"
 #include "scales.h"
-#include <vorbis/logger.h>
+#include <ogg/logger.h>
 
 /**** pack/unpack helpers ******************************************/
 
