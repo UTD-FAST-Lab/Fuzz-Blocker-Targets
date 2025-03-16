@@ -29,6 +29,7 @@
 #include "codebook.h"
 #include "misc.h"
 #include "os.h"
+#include "logger.h"
 
 #if defined(TRAIN_RES) || defined (TRAIN_RESAUX)
 #include <stdio.h>
@@ -64,7 +65,7 @@ typedef struct {
 
 void res0_free_info(vorbis_info_residue *i){
   vorbis_info_residue0 *info=(vorbis_info_residue0 *)i;
-  puts("[TRACE] Hash: 43402c8ed8ca756bc21ea6bf965865ae, File: vorbis/lib/res0.c, Func: res0_free_info, Line: 67, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 43402c8ed8ca756bc21ea6bf965865ae, File: vorbis/lib/res0.c, Func: res0_free_info, Line: 67, Col: 6\n");
   if(info){
     memset(info,0,sizeof(*info));
     _ogg_free(info);
@@ -73,7 +74,7 @@ void res0_free_info(vorbis_info_residue *i){
 
 void res0_free_look(vorbis_look_residue *i){
   int j;
-  puts("[TRACE] Hash: f9f82474a81140919becf213ae574e8b, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 75, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: f9f82474a81140919becf213ae574e8b, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 75, Col: 6\n");
   if(i){
 
     vorbis_look_residue0 *look=(vorbis_look_residue0 *)i;
@@ -138,12 +139,12 @@ void res0_free_look(vorbis_look_residue *i){
     }
     fprintf(stderr,"\n");*/
 
-    puts("[TRACE] Hash: 3bd7aa82be07ceda7c97752f9633c5fb, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 139, Col: 13\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 3bd7aa82be07ceda7c97752f9633c5fb, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 139, Col: 13\n");
     for(j=0;j<look->parts;j++)
-      puts("[TRACE] Hash: ed60a620f491c8bb42acc02b4b947e02, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 140, Col: 10\n");
+      log_message(LOG_INFO, "[TRACE] Hash: ed60a620f491c8bb42acc02b4b947e02, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 140, Col: 10\n");
       if(look->partbooks[j])_ogg_free(look->partbooks[j]);
     _ogg_free(look->partbooks);
-    puts("[TRACE] Hash: 49fdc61ca1b615e298a65591dd9843f2, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 142, Col: 13\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 49fdc61ca1b615e298a65591dd9843f2, File: vorbis/lib/res0.c, Func: res0_free_look, Line: 142, Col: 13\n");
     for(j=0;j<look->partvals;j++)
       _ogg_free(look->decodemap[j]);
     _ogg_free(look->decodemap);
@@ -205,16 +206,16 @@ vorbis_info_residue *res0_unpack(vorbis_info *vi,oggpack_buffer *opb){
   info->groupbook=oggpack_read(opb,8);
 
   /* check for premature EOP */
-  puts("[TRACE] Hash: 52abbdbcfd5c83b523c0c3813aa082a2, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 203, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 52abbdbcfd5c83b523c0c3813aa082a2, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 203, Col: 6\n");
   if(info->groupbook<0)goto errout;
 
-  puts("[TRACE] Hash: 4042115573e91e5d122071baa24eeccc, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 205, Col: 11\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 4042115573e91e5d122071baa24eeccc, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 205, Col: 11\n");
   for(j=0;j<info->partitions;j++){
     int cascade=oggpack_read(opb,3);
     int cflag=oggpack_read(opb,1);
-    puts("[TRACE] Hash: c44b9e40275aae75d044a70a4490ab68, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 208, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: c44b9e40275aae75d044a70a4490ab68, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 208, Col: 8\n");
     if(cflag<0) goto errout;
-    puts("[TRACE] Hash: c8191a4ffb88354ef1532712e14489f7, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 209, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: c8191a4ffb88354ef1532712e14489f7, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 209, Col: 8\n");
     if(cflag){
       int c=oggpack_read(opb,5);
       if(c<0) goto errout;
@@ -224,21 +225,21 @@ vorbis_info_residue *res0_unpack(vorbis_info *vi,oggpack_buffer *opb){
 
     acc+=icount(cascade);
   }
-  puts("[TRACE] Hash: ef4c628d0c0ae2d99a673283f9b71b77, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 218, Col: 11\n");
+  log_message(LOG_INFO, "[TRACE] Hash: ef4c628d0c0ae2d99a673283f9b71b77, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 218, Col: 11\n");
   for(j=0;j<acc;j++){
     int book=oggpack_read(opb,8);
-    puts("[TRACE] Hash: 5d4deca693457416995b738ab50751bc, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 220, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 5d4deca693457416995b738ab50751bc, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 220, Col: 8\n");
     if(book<0) goto errout;
     info->booklist[j]=book;
   }
 
-  puts("[TRACE] Hash: e63317f3a0901c082c371dfcb7bb8ea0, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 224, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: e63317f3a0901c082c371dfcb7bb8ea0, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 224, Col: 6\n");
   if(info->groupbook>=ci->books)goto errout;
-  puts("[TRACE] Hash: e7fb6ddd5b4c6bd5a8c1c7e707544e69, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 225, Col: 11\n");
+  log_message(LOG_INFO, "[TRACE] Hash: e7fb6ddd5b4c6bd5a8c1c7e707544e69, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 225, Col: 11\n");
   for(j=0;j<acc;j++){
-    puts("[TRACE] Hash: f16f66561ae29d97638376df356e6952, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 226, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: f16f66561ae29d97638376df356e6952, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 226, Col: 8\n");
     if(info->booklist[j]>=ci->books)goto errout;
-    puts("[TRACE] Hash: 1ce7934092f7a98e0d3cf1f178934da1, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 227, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 1ce7934092f7a98e0d3cf1f178934da1, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 227, Col: 8\n");
     if(ci->book_param[info->booklist[j]]->maptype==0)goto errout;
   }
 
@@ -252,12 +253,12 @@ vorbis_info_residue *res0_unpack(vorbis_info *vi,oggpack_buffer *opb){
     int entries = ci->book_param[info->groupbook]->entries;
     int dim = ci->book_param[info->groupbook]->dim;
     int partvals = 1;
-    puts("[TRACE] Hash: ffd98cc064ded07d5da7bdb3084b45e7, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 240, Col: 9\n");
+    log_message(LOG_INFO, "[TRACE] Hash: ffd98cc064ded07d5da7bdb3084b45e7, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 240, Col: 9\n");
     if (dim<1) goto errout;
-    puts("[TRACE] Hash: 7257cd41cc1622971ceb73bf117a6134, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 241, Col: 11\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 7257cd41cc1622971ceb73bf117a6134, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 241, Col: 11\n");
     while(dim>0){
       partvals *= info->partitions;
-      puts("[TRACE] Hash: 1486a71a97da387175f9d7d2f9026c3f, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 243, Col: 10\n");
+      log_message(LOG_INFO, "[TRACE] Hash: 1486a71a97da387175f9d7d2f9026c3f, File: vorbis/lib/res0.c, Func: res0_unpack, Line: 243, Col: 10\n");
       if(partvals > entries) goto errout;
       dim--;
     }
@@ -288,12 +289,12 @@ vorbis_look_residue *res0_look(vorbis_dsp_state *vd,
 
   look->partbooks=_ogg_calloc(look->parts,sizeof(*look->partbooks));
 
-  puts("[TRACE] Hash: 0cd1704a84d8f3feaf37d116dd2c5e52, File: vorbis/lib/res0.c, Func: res0_look, Line: 273, Col: 11\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 0cd1704a84d8f3feaf37d116dd2c5e52, File: vorbis/lib/res0.c, Func: res0_look, Line: 273, Col: 11\n");
   for(j=0;j<look->parts;j++){
     int stages=ov_ilog(info->secondstages[j]);
-    puts("[TRACE] Hash: f9cf69199d60291c4158a2aec36601b0, File: vorbis/lib/res0.c, Func: res0_look, Line: 275, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: f9cf69199d60291c4158a2aec36601b0, File: vorbis/lib/res0.c, Func: res0_look, Line: 275, Col: 8\n");
     if(stages){
-      puts("[TRACE] Hash: 372182f62008c2a04555be5b1cb898e8, File: vorbis/lib/res0.c, Func: res0_look, Line: 276, Col: 10\n");
+      log_message(LOG_INFO, "[TRACE] Hash: 372182f62008c2a04555be5b1cb898e8, File: vorbis/lib/res0.c, Func: res0_look, Line: 276, Col: 10\n");
       if(stages>maxstage)maxstage=stages;
       look->partbooks[j]=_ogg_calloc(stages,sizeof(*look->partbooks[j]));
       for(k=0;k<stages;k++)
@@ -313,7 +314,7 @@ vorbis_look_residue *res0_look(vorbis_dsp_state *vd,
 
   look->stages=maxstage;
   look->decodemap=_ogg_malloc(look->partvals*sizeof(*look->decodemap));
-  puts("[TRACE] Hash: 4f37df7c614575ada1a53281d11ad9d3, File: vorbis/lib/res0.c, Func: res0_look, Line: 295, Col: 11\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 4f37df7c614575ada1a53281d11ad9d3, File: vorbis/lib/res0.c, Func: res0_look, Line: 295, Col: 11\n");
   for(j=0;j<look->partvals;j++){
     long val=j;
     long mult=look->partvals/look->parts;
@@ -726,10 +727,10 @@ int res0_inverse(vorbis_block *vb,vorbis_look_residue *vl,
                  float **in,int *nonzero,int ch){
   int i,used=0;
   for(i=0;i<ch;i++)
-    puts("[TRACE] Hash: ca9d790f923a245afcb61975b45aa224, File: vorbis/lib/res0.c, Func: res0_inverse, Line: 707, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: ca9d790f923a245afcb61975b45aa224, File: vorbis/lib/res0.c, Func: res0_inverse, Line: 707, Col: 8\n");
     if(nonzero[i])
       in[used++]=in[i];
-  puts("[TRACE] Hash: 1f3b9727f10e001191efcca464b95ccf, File: vorbis/lib/res0.c, Func: res0_inverse, Line: 709, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 1f3b9727f10e001191efcca464b95ccf, File: vorbis/lib/res0.c, Func: res0_inverse, Line: 709, Col: 6\n");
   if(used)
     return(_01inverse(vb,vl,in,used,vorbis_book_decodevs_add));
   else
@@ -771,9 +772,9 @@ long **res1_class(vorbis_block *vb,vorbis_look_residue *vl,
 int res1_inverse(vorbis_block *vb,vorbis_look_residue *vl,
                  float **in,int *nonzero,int ch){
   int i,used=0;
-  puts("[TRACE] Hash: 832320c501ec6bfd24dc7e21c60d2730, File: vorbis/lib/res0.c, Func: res1_inverse, Line: 750, Col: 11\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 832320c501ec6bfd24dc7e21c60d2730, File: vorbis/lib/res0.c, Func: res1_inverse, Line: 750, Col: 11\n");
   for(i=0;i<ch;i++)
-    puts("[TRACE] Hash: ca2fe141f1a97055210fcc1f80d41c1e, File: vorbis/lib/res0.c, Func: res1_inverse, Line: 751, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: ca2fe141f1a97055210fcc1f80d41c1e, File: vorbis/lib/res0.c, Func: res1_inverse, Line: 751, Col: 8\n");
     if(nonzero[i])
       in[used++]=in[i];
   if(used)
@@ -835,11 +836,11 @@ int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
   int samples_per_partition=info->grouping;
   int partitions_per_word=look->phrasebook->dim;
   int max=(vb->pcmend*ch)>>1;
-  puts("[TRACE] Hash: 125d7870f25e535eabea382addd0002b, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 812, Col: 12\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 125d7870f25e535eabea382addd0002b, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 812, Col: 12\n");
   int end=(info->end<max?info->end:max);
   int n=end-info->begin;
 
-  puts("[TRACE] Hash: c43e7eee640e5202a93706c567f5d788, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 815, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: c43e7eee640e5202a93706c567f5d788, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 815, Col: 6\n");
   if(n>0){
     int partvals=n/samples_per_partition;
     int partwords=(partvals+partitions_per_word-1)/partitions_per_word;
@@ -848,32 +849,32 @@ int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
     for(i=0;i<ch;i++)if(nonzero[i])break;
     if(i==ch)return(0); /* no nonzero vectors */
 
-    puts("[TRACE] Hash: 98f45eecf39799e98ffac09b5ef7d50c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 823, Col: 13\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 98f45eecf39799e98ffac09b5ef7d50c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 823, Col: 13\n");
     for(s=0;s<look->stages;s++){
-      puts("[TRACE] Hash: 0eff2615af72df5492df04409d9d30ea, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 824, Col: 19\n");
+      log_message(LOG_INFO, "[TRACE] Hash: 0eff2615af72df5492df04409d9d30ea, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 824, Col: 19\n");
       for(i=0,l=0;i<partvals;l++){
 
         if(s==0){
           /* fetch the partition word */
           int temp=vorbis_book_decode(look->phrasebook,&vb->opb);
-          puts("[TRACE] Hash: 39c944ed25d582d6ae08086bb0250ea1, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 829, Col: 26\n");
-          puts("[TRACE] Hash: 5c114258f3bfc0487d172bb9574d073a, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 829, Col: 14\n");
+          log_message(LOG_INFO, "[TRACE] Hash: 39c944ed25d582d6ae08086bb0250ea1, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 829, Col: 26\n");
+          log_message(LOG_INFO, "[TRACE] Hash: 5c114258f3bfc0487d172bb9574d073a, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 829, Col: 14\n");
           if(temp==-1 || temp>=info->partvals)goto eopbreak;
           partword[l]=look->decodemap[temp];
-          puts("[TRACE] Hash: f91f6b8f5e7c7f43c676aed3fec82c5c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 831, Col: 14\n");
+          log_message(LOG_INFO, "[TRACE] Hash: f91f6b8f5e7c7f43c676aed3fec82c5c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 831, Col: 14\n");
           if(partword[l]==NULL)goto errout;
         }
 
         /* now we decode residual values for the partitions */
-        puts("[TRACE] Hash: c844f44def94ae808597984e44cc8466, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 835, Col: 42\n");
+        log_message(LOG_INFO, "[TRACE] Hash: c844f44def94ae808597984e44cc8466, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 835, Col: 42\n");
         for(k=0;k<partitions_per_word && i<partvals;k++,i++)
-          puts("[TRACE] Hash: 2725300afcb7909f3f212dee6545f76f, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 836, Col: 14\n");
+          log_message(LOG_INFO, "[TRACE] Hash: 2725300afcb7909f3f212dee6545f76f, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 836, Col: 14\n");
           if(info->secondstages[partword[l][k]]&(1<<s)){
             codebook *stagebook=look->partbooks[partword[l][k]][s];
 
-            puts("[TRACE] Hash: 1b69d4ca01a17960153dfbcff177c6b9, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 839, Col: 16\n");
+            log_message(LOG_INFO, "[TRACE] Hash: 1b69d4ca01a17960153dfbcff177c6b9, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 839, Col: 16\n");
             if(stagebook){
-              puts("[TRACE] Hash: e5e3913c079a48ac37a36b96dd31d20c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 840, Col: 18\n");
+              log_message(LOG_INFO, "[TRACE] Hash: e5e3913c079a48ac37a36b96dd31d20c, File: vorbis/lib/res0.c, Func: res2_inverse, Line: 840, Col: 18\n");
               if(vorbis_book_decodevv_add(stagebook,in,
                                           i*samples_per_partition+info->begin,ch,
                                           &vb->opb,samples_per_partition)==-1)

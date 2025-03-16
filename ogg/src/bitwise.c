@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ogg/ogg.h>
+#include "logger.h"
 
 #define BUFFER_INCREMENT 256
 
@@ -270,35 +271,35 @@ long oggpack_look(oggpack_buffer *b,int bits){
   unsigned long ret;
   unsigned long m;
 
-  puts("[TRACE] Hash: 36a03ccd06eb091764722fbcfc75d410, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 273, Col: 6\n");
-  puts("[TRACE] Hash: 9781c1bbaf50788fa9a7544389159c5e, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 273, Col: 16\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 36a03ccd06eb091764722fbcfc75d410, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 273, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 9781c1bbaf50788fa9a7544389159c5e, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 273, Col: 16\n");
   if(bits<0 || bits>32) return -1;
   m=mask[bits];
   bits+=b->endbit;
 
-  puts("[TRACE] Hash: 505b82c8a05c148c4e6a9634155c3e06, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 277, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 505b82c8a05c148c4e6a9634155c3e06, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 277, Col: 6\n");
   if(b->endbyte >= b->storage-4){
     /* not the main path */
     if(b->endbyte > b->storage-((bits+7)>>3)) return -1;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
     else if(!bits){
-      puts("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13\n");
+      log_message(LOG_INFO, "[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13\n");
       return(0L);
     }
-    puts("[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13\n");
+    log_message(LOG_INFO, "[TRACE] Hash: a135bb9428380af4f0b1101a98f3521a, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 282, Col: 13\n");
   }
 
   ret=b->ptr[0]>>b->endbit;
   if(bits>8){
     ret|=(unsigned long)b->ptr[1]<<(8-b->endbit);
-    puts("[TRACE] Hash: ef5327a4359f355106e62c2a1ed7565e, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 288, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: ef5327a4359f355106e62c2a1ed7565e, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 288, Col: 8\n");
     if(bits>16){
       ret|=(unsigned long)b->ptr[2]<<(16-b->endbit);
-      puts("[TRACE] Hash: 61c3fe02799eb8e346292a6155f1d0d6, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 290, Col: 10\n");
+      log_message(LOG_INFO, "[TRACE] Hash: 61c3fe02799eb8e346292a6155f1d0d6, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 290, Col: 10\n");
       if(bits>24){
         ret|=(unsigned long)b->ptr[3]<<(24-b->endbit);
-        puts("[TRACE] Hash: f9e0fed140cab61466d23c103b44cb63, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 292, Col: 12\n");
+        log_message(LOG_INFO, "[TRACE] Hash: f9e0fed140cab61466d23c103b44cb63, File: ogg/src/bitwise.c, Func: oggpack_look, Line: 292, Col: 12\n");
         if(bits>32 && b->endbit)
           ret|=(unsigned long)b->ptr[4]<<(32-b->endbit);
       }
@@ -351,7 +352,7 @@ long oggpackB_look1(oggpack_buffer *b){
 void oggpack_adv(oggpack_buffer *b,int bits){
   bits+=b->endbit;
 
-  puts("[TRACE] Hash: 63c92285b3da18788169b44eaaa602cd, File: ogg/src/bitwise.c, Func: oggpack_adv, Line: 344, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 63c92285b3da18788169b44eaaa602cd, File: ogg/src/bitwise.c, Func: oggpack_adv, Line: 344, Col: 6\n");
   if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
 
   b->ptr+=bits/8;
@@ -386,35 +387,35 @@ long oggpack_read(oggpack_buffer *b,int bits){
   long ret;
   unsigned long m;
 
-  puts("[TRACE] Hash: 4d5af4ea0d85c2239b8d79c073988f1e, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 378, Col: 16\n");
-  puts("[TRACE] Hash: a8be8579e4021b33f65a31419cf31f2b, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 378, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 4d5af4ea0d85c2239b8d79c073988f1e, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 378, Col: 16\n");
+  log_message(LOG_INFO, "[TRACE] Hash: a8be8579e4021b33f65a31419cf31f2b, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 378, Col: 6\n");
   if(bits<0 || bits>32) goto err;
   m=mask[bits];
   bits+=b->endbit;
 
-  puts("[TRACE] Hash: 9fbf9a6a06470c0a191fe5c1e0a1975e, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 382, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 9fbf9a6a06470c0a191fe5c1e0a1975e, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 382, Col: 6\n");
   if(b->endbyte >= b->storage-4){
     /* not the main path */
     if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
     /* special case to avoid reading b->ptr[0], which might be past the end of
         the buffer; also skips some useless accounting */
     else if(!bits){
-      puts("[TRACE] Hash: 79236360aebc233b1292ce0456774d18, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 387, Col: 13\n");
+      log_message(LOG_INFO, "[TRACE] Hash: 79236360aebc233b1292ce0456774d18, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 387, Col: 13\n");
       return(0L);
     }
-    puts("[TRACE] Hash: 79236360aebc233b1292ce0456774d18, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 387, Col: 13\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 79236360aebc233b1292ce0456774d18, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 387, Col: 13\n");
   }
 
   ret=b->ptr[0]>>b->endbit;
-  puts("[TRACE] Hash: 389250cd89f654e116df1f4729533bad, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 391, Col: 6\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 389250cd89f654e116df1f4729533bad, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 391, Col: 6\n");
   if(bits>8){
     ret|=(unsigned long)b->ptr[1]<<(8-b->endbit);
-    puts("[TRACE] Hash: a093912dd3de7ab020bffc53469372ff, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 393, Col: 8\n");
+    log_message(LOG_INFO, "[TRACE] Hash: a093912dd3de7ab020bffc53469372ff, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 393, Col: 8\n");
     if(bits>16){
       ret|=(unsigned long)b->ptr[2]<<(16-b->endbit);
       if(bits>24){
         ret|=(unsigned long)b->ptr[3]<<(24-b->endbit);
-        puts("[TRACE] Hash: 8c2666f0dc45468de6afad8f7f6e0afe, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 397, Col: 23\n");
+        log_message(LOG_INFO, "[TRACE] Hash: 8c2666f0dc45468de6afad8f7f6e0afe, File: ogg/src/bitwise.c, Func: oggpack_read, Line: 397, Col: 23\n");
         if(bits>32 && b->endbit){
           ret|=(unsigned long)b->ptr[4]<<(32-b->endbit);
         }

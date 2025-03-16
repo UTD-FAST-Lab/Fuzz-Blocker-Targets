@@ -2,6 +2,7 @@ set(VORBIS_PUBLIC_HEADERS
     ../include/vorbis/codec.h
     ../include/vorbis/vorbisenc.h
     ../include/vorbis/vorbisfile.h
+    ../include/vorbis/logger.h
 )
 
 set(VORBIS_HEADERS
@@ -47,6 +48,7 @@ set(VORBIS_SOURCES
     sharedbook.c
     lookup.c
     bitrate.c
+    logger.c
 )
 
 set(VORBISFILE_SOURCES

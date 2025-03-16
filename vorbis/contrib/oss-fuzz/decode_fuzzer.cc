@@ -2,6 +2,7 @@
 #include <string.h>
 #include <cstdint>
 #include <vorbis/vorbisfile.h>
+#include "logger.h"
 
 struct vorbis_data {
   const uint8_t *current;
@@ -12,7 +13,7 @@ struct vorbis_data {
 size_t read_func(void *ptr, size_t size1, size_t size2, void *datasource) {
   vorbis_data* vd = (vorbis_data *)(datasource);
   size_t len = size1 * size2;
-  puts("[TRACE] Hash: 529f97a66abfe2eee63599f1e5c5e06e, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: _Z9read_funcPvmmS_, Line: 15, Col: 7\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 529f97a66abfe2eee63599f1e5c5e06e, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: _Z9read_funcPvmmS_, Line: 15, Col: 7\n");
   if (vd->current + len > vd->data + vd->size) {
       len = vd->data + vd->size - vd->current;
   }
@@ -23,6 +24,7 @@ size_t read_func(void *ptr, size_t size1, size_t size2, void *datasource) {
 
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
+  log_init("program.log"); 
   ov_callbacks memory_callbacks = {0};
   memory_callbacks.read_func = read_func;
   vorbis_data data_st;
@@ -38,15 +40,16 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
   int eof = 0;
   char buf[4096];
   int read_result;
-  puts("[TRACE] Hash: 4e69ad006785123542cbde2f273d1e89, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: LLVMFuzzerTestOneInput, Line: 40, Col: 10\n");
+  log_message(LOG_INFO, "[TRACE] Hash: 4e69ad006785123542cbde2f273d1e89, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: LLVMFuzzerTestOneInput, Line: 40, Col: 10\n");
   while (!eof) {
     read_result = ov_read(&vf, buf, sizeof(buf), 0, 2, 1, &current_section);
-    puts("[TRACE] Hash: 98e84fd812d10ed73778ff1c62cf2aeb, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: LLVMFuzzerTestOneInput, Line: 42, Col: 9\n");
-    puts("[TRACE] Hash: f92ee9d08c5190604d30416f513b920c, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: LLVMFuzzerTestOneInput, Line: 42, Col: 35\n");
+    log_message(LOG_INFO, "[TRACE] Hash: 98e84fd812d10ed73778ff1c62cf2aeb, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: LLVMFuzzerTestOneInput, Line: 42, Col: 9\n");
+    log_message(LOG_INFO, "[TRACE] Hash: f92ee9d08c5190604d30416f513b920c, File: vorbis/contrib/oss-fuzz/decode_fuzzer.cc, Func: LLVMFuzzerTestOneInput, Line: 42, Col: 35\n");
     if (read_result != OV_HOLE && read_result <= 0) {
       eof = 1;
     }
   }
   ov_clear(&vf);
+  log_close();
   return 0;
 }
