@@ -33,7 +33,6 @@
 #include "smallft.h"
 #include "os.h"
 #include "misc.h"
-#include <ogg/logger.h>
 
 static void drfti1(int n, float *wa, int *ifac){
   static int ntryh[4] = { 4,2,3,5 };
@@ -1247,11 +1246,8 @@ void drft_init(drft_lookup *l,int n){
 }
 
 void drft_clear(drft_lookup *l){
-  log_message("[TRACE] Hash: 0e75d8b7336c821abe4c1581c9075239, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1249, Col: 6\n");
   if(l){
-    log_message("[TRACE] Hash: 07b7619292919660e8282c918aebe270, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1250, Col: 8\n");
     if(l->trigcache)_ogg_free(l->trigcache);
-    log_message("[TRACE] Hash: dd2c8ed2b849b1540a6590def20757e8, File: vorbis/lib/smallft.c, Func: drft_clear, Line: 1251, Col: 8\n");
     if(l->splitcache)_ogg_free(l->splitcache);
     memset(l,0,sizeof(*l));
   }

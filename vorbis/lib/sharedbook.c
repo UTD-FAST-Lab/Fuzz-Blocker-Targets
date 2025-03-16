@@ -24,13 +24,11 @@
 #include "vorbis/codec.h"
 #include "codebook.h"
 #include "scales.h"
-#include <ogg/logger.h>
 
 /**** pack/unpack helpers ******************************************/
 
 int ov_ilog(ogg_uint32_t v){
   int ret;
-  log_message("[TRACE] Hash: 91699f91453a64b311a4f691ac5f389c, File: vorbis/lib/sharedbook.c, Func: ov_ilog, Line: 32, Col: 13\n");
   for(ret=0;v;ret++)v>>=1;
   return ret;
 }
@@ -66,11 +64,9 @@ float _float32_unpack(long val){
   if(sign)mant= -mant;
   exp=exp-(VQ_FMAN-1)-VQ_FEXP_BIAS;
   /* clamp excessive exponent values */
-  log_message("[TRACE] Hash: 2b90001ff1e4da4cc129778b84d18822, File: vorbis/lib/sharedbook.c, Func: _float32_unpack, Line: 67, Col: 7\n");
   if (exp>63){
     exp=63;
   }
-  log_message("[TRACE] Hash: 4642d29250939386de3975fa3c2b195a, File: vorbis/lib/sharedbook.c, Func: _float32_unpack, Line: 70, Col: 7\n");
   if (exp<-63){
     exp=-63;
   }
@@ -83,11 +79,9 @@ float _float32_unpack(long val){
 ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
   long i,j,count=0;
   ogg_uint32_t marker[33];
-  log_message("[TRACE] Hash: 0cd377d918b1af5c09b5d2f914366cd9, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 82, Col: 32\n");
   ogg_uint32_t *r=_ogg_malloc((sparsecount?sparsecount:n)*sizeof(*r));
   memset(marker,0,sizeof(marker));
 
-  log_message("[TRACE] Hash: 4a538121d84dd792b094d078ed57b5b5, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 85, Col: 11\n");
   for(i=0;i<n;i++){
     long length=l[i];
     if(length>0){
@@ -99,8 +93,6 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
          above for leaves */
 
       /* update ourself */
-      log_message("[TRACE] Hash: de4c9eef4419780401ff18803196e778, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 96, Col: 23\n");
-      log_message("[TRACE] Hash: ef686e3435f0ec83539ed32e9e92891f, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 96, Col: 10\n");
       if(length<32 && (entry>>length)){
         /* error condition; the lengths must specify an overpopulated tree */
         _ogg_free(r);
@@ -111,12 +103,10 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
       /* Look to see if the next shorter marker points to the node
          above. if so, update it and repeat.  */
       {
-        log_message("[TRACE] Hash: 8897362ab931a4e09902cd6bc07e0a63, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 106, Col: 22\n");
         for(j=length;j>0;j--){
 
           if(marker[j]&1){
             /* have to jump branches */
-            log_message("[TRACE] Hash: de80b6ae43490990ab021da5c28050ad, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 110, Col: 16\n");
             if(j==1)
               marker[1]++;
             else
@@ -131,16 +121,13 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
       /* prune the tree; the implicit invariant says all the longer
          markers were dangling from our just-taken node.  Dangle them
          from our *new* node. */
-      log_message("[TRACE] Hash: 6a312d3313b0d7f59c9d7fd42b83e05f, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 124, Col: 22\n");
       for(j=length+1;j<33;j++)
-        log_message("[TRACE] Hash: 509b7de0312e39979f07ace8e0690bf0, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 125, Col: 12\n");
         if((marker[j]>>1) == entry){
           entry=marker[j];
           marker[j]=marker[j-1]<<1;
         }else
           break;
     }else
-      log_message("[TRACE] Hash: a59705b90e0994861c6562d833be67c4, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 131, Col: 10\n");
       if(sparsecount==0)count++;
   }
 
@@ -148,11 +135,8 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
   /* Single-entry codebooks are a retconned extension to the spec.
      They have a single codeword '0' of length 1 that results in an
      underpopulated tree.  Shield that case from the underformed tree check. */
-  log_message("[TRACE] Hash: 87dc71e374e1d9f82fc0d1fee3e749da, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 138, Col: 8\n");
   if(!(count==1 && marker[2]==2)){
-    log_message("[TRACE] Hash: 5d87855b1486a213ab9a44d6e22e2c0a, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 139, Col: 13\n");
     for(i=1;i<33;i++)
-      log_message("[TRACE] Hash: 1dd80dfcee2d743822c61654b64db067, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 140, Col: 10\n");
       if(marker[i] & (0xffffffffUL>>(32-i))){
         _ogg_free(r);
         return(NULL);
@@ -161,7 +145,6 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
 
   /* bitreverse the words because our bitwise packer/unpacker is LSb
      endian */
-  log_message("[TRACE] Hash: 38f0e51c4672be5489922c59d1621685, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 148, Col: 19\n");
   for(i=0,count=0;i<n;i++){
     ogg_uint32_t temp=0;
     for(j=0;j<l[i];j++){
@@ -169,7 +152,6 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
       temp|=(r[count]>>j)&1;
     }
 
-    log_message("[TRACE] Hash: 61bfa3ceeec6b44f7895e8e1e60a1341, File: vorbis/lib/sharedbook.c, Func: _make_words, Line: 155, Col: 8\n");
     if(sparsecount){
       if(l[i])
         r[count++]=temp;
@@ -185,7 +167,7 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
    thought of it.  Therefore, we opt on the side of caution */
 long _book_maptype1_quantvals(const static_codebook *b){
   long vals;
-  log_message("[TRACE] Hash: 1d9f41ae18bdbfab2a665b057f223f6b, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 170, Col: 6\n");
+  printf("[TRACE] Hash: 1d9f41ae18bdbfab2a665b057f223f6b, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 170, Col: 6\n");
   if(b->entries<1){
     return(0);
   }
@@ -196,7 +178,7 @@ long _book_maptype1_quantvals(const static_codebook *b){
      means that vals really is the greatest value of dim for which
      vals^b->bim <= b->entries */
   /* treat the above as an initial guess */
-  log_message("[TRACE] Hash: 41ed539475282667e5ecbdf79c8f9290, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 180, Col: 6\n");
+  printf("[TRACE] Hash: 41ed539475282667e5ecbdf79c8f9290, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 180, Col: 6\n");
   if(vals<1){
     vals=1;
   }
@@ -204,17 +186,16 @@ long _book_maptype1_quantvals(const static_codebook *b){
     long acc=1;
     long acc1=1;
     int i;
-    log_message("[TRACE] Hash: 8d323a9e2608a2bc84d2b67aff55d321, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 187, Col: 13\n");
     for(i=0;i<b->dim;i++){
-      log_message("[TRACE] Hash: 2a57bffeed7d7b530986893bae2cf288, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 188, Col: 10\n");
+      printf("[TRACE] Hash: 2a57bffeed7d7b530986893bae2cf288, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 188, Col: 10\n");
       if(b->entries/vals<acc)break;
       acc*=vals;
       if(LONG_MAX/(vals+1)<acc1)acc1=LONG_MAX;
       else acc1*=vals+1;
     }
-    log_message("[TRACE] Hash: 0ad2f18a4b3188fffaa1cb1bf657f621, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 193, Col: 8\n");
-    log_message("[TRACE] Hash: 7b32829b6eb650df80e2be6cfe68b0b0, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 193, Col: 40\n");
-    log_message("[TRACE] Hash: a6a018446805f10f9170130b7e8773c2, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 193, Col: 21\n");
+    printf("[TRACE] Hash: 0ad2f18a4b3188fffaa1cb1bf657f621, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 193, Col: 8\n");
+    printf("[TRACE] Hash: 7b32829b6eb650df80e2be6cfe68b0b0, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 193, Col: 40\n");
+    printf("[TRACE] Hash: a6a018446805f10f9170130b7e8773c2, File: vorbis/lib/sharedbook.c, Func: _book_maptype1_quantvals, Line: 193, Col: 21\n");
     if(i>=b->dim && acc<=b->entries && acc1>b->entries){
       return(vals);
     }else{
@@ -234,7 +215,7 @@ long _book_maptype1_quantvals(const static_codebook *b){
    in in an explicit list.  Both value lists must be unpacked */
 float *_book_unquantize(const static_codebook *b,int n,int *sparsemap){
   long j,k,count=0;
-  log_message("[TRACE] Hash: a6c2ac5c7c9a5f95ab0fd8f8769355c4, File: vorbis/lib/sharedbook.c, Func: _book_unquantize, Line: 212, Col: 23\n");
+  printf("[TRACE] Hash: a6c2ac5c7c9a5f95ab0fd8f8769355c4, File: vorbis/lib/sharedbook.c, Func: _book_unquantize, Line: 212, Col: 23\n");
   if(b->maptype==1 || b->maptype==2){
     int quantvals;
     float mindel=_float32_unpack(b->q_min);
@@ -243,7 +224,7 @@ float *_book_unquantize(const static_codebook *b,int n,int *sparsemap){
 
     /* maptype 1 and 2 both use a quantized value vector, but
        different sizes */
-    log_message("[TRACE] Hash: 26aedfa1810da458687a1c5cf77c9715, File: vorbis/lib/sharedbook.c, Func: _book_unquantize, Line: 220, Col: 12\n");
+    printf("[TRACE] Hash: 26aedfa1810da458687a1c5cf77c9715, File: vorbis/lib/sharedbook.c, Func: _book_unquantize, Line: 220, Col: 12\n");
     switch(b->maptype){
     case 1:
       /* most of the time, entries%dimensions == 0, but we need to be
@@ -300,10 +281,8 @@ float *_book_unquantize(const static_codebook *b,int n,int *sparsemap){
 }
 
 void vorbis_staticbook_destroy(static_codebook *b){
-  log_message("[TRACE] Hash: 589237b067f47185ec5791463b245fa7, File: vorbis/lib/sharedbook.c, Func: vorbis_staticbook_destroy, Line: 276, Col: 6\n");
   if(b->allocedp){
     if(b->quantlist)_ogg_free(b->quantlist);
-    log_message("[TRACE] Hash: 0c0bf1bbdd670ed29ed6c235837baa28, File: vorbis/lib/sharedbook.c, Func: vorbis_staticbook_destroy, Line: 278, Col: 8\n");
     if(b->lengthlist)_ogg_free(b->lengthlist);
     memset(b,0,sizeof(*b));
     _ogg_free(b);
@@ -314,14 +293,10 @@ void vorbis_book_clear(codebook *b){
   /* static book is not cleared; we're likely called on the lookup and
      the static codebook belongs to the info struct */
   if(b->valuelist)_ogg_free(b->valuelist);
-  log_message("[TRACE] Hash: bcb0c15ff25e18c0cce5a6a604277b0d, File: vorbis/lib/sharedbook.c, Func: vorbis_book_clear, Line: 288, Col: 6\n");
   if(b->codelist)_ogg_free(b->codelist);
 
-  log_message("[TRACE] Hash: 359aa47b4ae52092285ecbedd0121d7f, File: vorbis/lib/sharedbook.c, Func: vorbis_book_clear, Line: 290, Col: 6\n");
   if(b->dec_index)_ogg_free(b->dec_index);
-  log_message("[TRACE] Hash: 0d358a24c5362355f80301aa2ca2a52a, File: vorbis/lib/sharedbook.c, Func: vorbis_book_clear, Line: 291, Col: 6\n");
   if(b->dec_codelengths)_ogg_free(b->dec_codelengths);
-  log_message("[TRACE] Hash: 1f2ed841fb6ec3ea8578280f1b9085db, File: vorbis/lib/sharedbook.c, Func: vorbis_book_clear, Line: 292, Col: 6\n");
   if(b->dec_firsttable)_ogg_free(b->dec_firsttable);
 
   memset(b,0,sizeof(*b));
@@ -364,7 +339,6 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
   memset(c,0,sizeof(*c));
 
   /* count actually used entries and find max length */
-  log_message("[TRACE] Hash: fd8619667aed1885ddbf5853acdbc9a1, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 334, Col: 11\n");
   for(i=0;i<s->entries;i++)
     if(s->lengthlist[i]>0)
       n++;
@@ -373,7 +347,6 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
   c->used_entries=n;
   c->dim=s->dim;
 
-  log_message("[TRACE] Hash: 050a9d65e0c5660f2e53cf72de0f3821, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 342, Col: 6\n");
   if(n>0){
     /* two different remappings go on here.
 
@@ -389,10 +362,8 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
     ogg_uint32_t *codes=_make_words(s->lengthlist,s->entries,c->used_entries);
     ogg_uint32_t **codep=alloca(sizeof(*codep)*n);
 
-    log_message("[TRACE] Hash: 1124158747e30cffc5ccd86a7aa7684b, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 357, Col: 8\n");
     if(codes==NULL)goto err_out;
 
-    log_message("[TRACE] Hash: 1710866f2bd823ae9e7a776eb6b5a74d, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 359, Col: 13\n");
     for(i=0;i<n;i++){
       codes[i]=bitreverse(codes[i]);
       codep[i]=codes+i;
@@ -403,13 +374,11 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
     sortindex=alloca(n*sizeof(*sortindex));
     c->codelist=_ogg_malloc(n*sizeof(*c->codelist));
     /* the index is a reverse index */
-    log_message("[TRACE] Hash: 717ac5e9c5635ee61a13064e69d8cd41, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 369, Col: 13\n");
     for(i=0;i<n;i++){
       int position=codep[i]-codes;
       sortindex[position]=i;
     }
 
-    log_message("[TRACE] Hash: d504ed517d6594c76deb8384442ac43d, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 374, Col: 13\n");
     for(i=0;i<n;i++)
       c->codelist[sortindex[i]]=codes[i];
     _ogg_free(codes);
@@ -417,23 +386,19 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
     c->valuelist=_book_unquantize(s,n,sortindex);
     c->dec_index=_ogg_malloc(n*sizeof(*c->dec_index));
 
-    log_message("[TRACE] Hash: 967ddb94d1147672b1bce236e3b5fcd8, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 381, Col: 17\n");
     for(n=0,i=0;i<s->entries;i++)
       if(s->lengthlist[i]>0)
         c->dec_index[sortindex[n++]]=i;
 
     c->dec_codelengths=_ogg_malloc(n*sizeof(*c->dec_codelengths));
     c->dec_maxlength=0;
-    log_message("[TRACE] Hash: 34e61a349cc24bcb4d814d79d217333e, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 387, Col: 17\n");
     for(n=0,i=0;i<s->entries;i++)
       if(s->lengthlist[i]>0){
         c->dec_codelengths[sortindex[n++]]=s->lengthlist[i];
-        log_message("[TRACE] Hash: 9f4065b0f46fca827897699483ada7fe, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 390, Col: 12\n");
         if(s->lengthlist[i]>c->dec_maxlength)
           c->dec_maxlength=s->lengthlist[i];
       }
 
-    log_message("[TRACE] Hash: 5cd65109a9d0e0119f7a08125a6d0f05, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 394, Col: 8\n");
     if(n==1 && c->dec_maxlength==1){
       /* special case the 'single entry codebook' with a single bit
        fastpath table (that always returns entry 0 )in order to use
@@ -444,17 +409,13 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
 
     }else{
       c->dec_firsttablen=ov_ilog(c->used_entries)-4; /* this is magic */
-      log_message("[TRACE] Hash: 5ea68d0b33e458199e96a14332185129, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 404, Col: 10\n");
       if(c->dec_firsttablen<5)c->dec_firsttablen=5;
-      log_message("[TRACE] Hash: 5b87e00e2d80d037e819e0a0be34a6be, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 405, Col: 10\n");
       if(c->dec_firsttablen>8)c->dec_firsttablen=8;
 
       tabn=1<<c->dec_firsttablen;
       c->dec_firsttable=_ogg_calloc(tabn,sizeof(*c->dec_firsttable));
 
-      log_message("[TRACE] Hash: a9aa291f929a2bbc2888a810e4b62d35, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 410, Col: 15\n");
       for(i=0;i<n;i++){
-        log_message("[TRACE] Hash: 12e1d1ca4b123918f674401058de0ef2, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 411, Col: 12\n");
         if(c->dec_codelengths[i]<=c->dec_firsttablen){
           ogg_uint32_t orig=bitreverse(c->codelist[i]);
           for(j=0;j<(1<<(c->dec_firsttablen-c->dec_codelengths[i]));j++)
@@ -468,15 +429,10 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
         ogg_uint32_t mask=0xfffffffeUL<<(31-c->dec_firsttablen);
         long lo=0,hi=0;
 
-        log_message("[TRACE] Hash: 7eb7b2680e5a88fafe89263f949c677a, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 424, Col: 17\n");
         for(i=0;i<tabn;i++){
           ogg_uint32_t word=((ogg_uint32_t)i<<(32-c->dec_firsttablen));
           if(c->dec_firsttable[bitreverse(word)]==0){
-            log_message("[TRACE] Hash: 903f56ead4491ba73e81df1e69c9e44e, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 427, Col: 31\n");
-            log_message("[TRACE] Hash: af2c1fd2dbd9d46c8c9a208d4eb97ad2, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 427, Col: 19\n");
             while((lo+1)<n && c->codelist[lo+1]<=word)lo++;
-            log_message("[TRACE] Hash: 273d92034462b112176ce0809d6dbea2, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 428, Col: 31\n");
-            log_message("[TRACE] Hash: 9ff03bfff00d7cdc0f1ab3ca057e13e3, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 428, Col: 23\n");
             while(    hi<n && word>=(c->codelist[hi]&mask))hi++;
 
             /* we only actually have 15 bits per hint to play with here.
@@ -486,9 +442,7 @@ int vorbis_book_init_decode(codebook *c,const static_codebook *s){
               unsigned long loval=lo;
               unsigned long hival=n-hi;
 
-              log_message("[TRACE] Hash: 3ff73331cd59cbe4d205153f3728661d, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 437, Col: 18\n");
               if(loval>0x7fff)loval=0x7fff;
-              log_message("[TRACE] Hash: 73e96ae525ffa46c4e4bd7648c1c46ab, File: vorbis/lib/sharedbook.c, Func: vorbis_book_init_decode, Line: 438, Col: 18\n");
               if(hival>0x7fff)hival=0x7fff;
               c->dec_firsttable[bitreverse(word)]=
                 0x80000000UL | (loval<<15) | hival;
