@@ -1,4 +1,4 @@
-#include "logger.h"
+#include <vorbis/logger.h>
 #include <stdarg.h>
 
 FILE *log_file = NULL;
