@@ -21,7 +21,7 @@
 #include <math.h>
 
 #include "vorbis/codec.h"
-#include "logger.h"
+#include <vorbis/logger.h>
 
 /* we don't need or want the static callback symbols here */
 #define OV_EXCLUDE_STATIC_CALLBACKS

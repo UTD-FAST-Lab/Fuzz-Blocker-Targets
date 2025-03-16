@@ -2,7 +2,7 @@
 #include <string.h>
 #include <cstdint>
 #include <vorbis/vorbisfile.h>
-#include "logger.h"
+#include <vorbis/logger.h>
 
 struct vorbis_data {
   const uint8_t *current;

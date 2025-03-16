@@ -1,4 +1,4 @@
-#include "logger.h"
+#include <ogg/logger.h>
 #include <stdarg.h>
 
 FILE *log_file = NULL;

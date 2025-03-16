@@ -21,7 +21,7 @@
 #include "registry.h"
 #include "misc.h"
 #include "os.h"
-#include "logger.h"
+#include <vorbis/logger.h>
 
 int vorbis_synthesis(vorbis_block *vb,ogg_packet *op){
   log_message(LOG_INFO, "[TRACE] Hash: 766cb977492e107067d4330ea4d75a7d, File: vorbis/lib/synthesis.c, Func: vorbis_synthesis, Line: 26, Col: 29\n");

@@ -27,7 +27,7 @@
 #include <limits.h>
 #include <string.h>
 #include <ogg/ogg.h>
-#include "logger.h"
+#include <ogg/logger.h>
 
 /* A complete description of Ogg framing exists in docs/framing.html */
 

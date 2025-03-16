@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ogg/ogg.h>
-#include "logger.h"
+#include <ogg/logger.h>
 
 #define BUFFER_INCREMENT 256
 

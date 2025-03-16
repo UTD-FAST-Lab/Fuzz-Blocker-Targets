@@ -23,7 +23,7 @@
 #include <ogg/ogg.h>
 #include "vorbis/codec.h"
 #include "codec_internal.h"
-#include "logger.h"
+#include <vorbis/logger.h>
 
 #include "window.h"
 #include "mdct.h"
